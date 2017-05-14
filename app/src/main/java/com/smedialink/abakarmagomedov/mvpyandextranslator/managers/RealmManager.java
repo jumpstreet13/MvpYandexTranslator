@@ -1,0 +1,19 @@
+package com.smedialink.abakarmagomedov.mvpyandextranslator.managers;
+
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.TranslateRealm;
+
+import io.realm.Realm;
+
+
+/**
+ * Created by abakarmagomedov on 13/05/17.
+ */
+
+public class RealmManager {
+
+
+    public static void writeToRealm(final TranslateRealm translateRealm){
+        Realm.getDefaultInstance().executeTransaction(realm -> realm.copyToRealmOrUpdate(translateRealm));
+    }
+
+}
