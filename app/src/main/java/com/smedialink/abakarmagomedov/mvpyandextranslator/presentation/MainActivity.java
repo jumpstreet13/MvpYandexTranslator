@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View {
 
     @OnClick(R.id.button)
     public void onButtonClick(){
+        map.put("text", englishText.getText().toString());
         mPresenter.getData(map);
         Log.d("Click", "clicked");
     }
@@ -51,6 +52,9 @@ public class MainActivity extends AppCompatActivity implements View {
         LogicComponent component = (LogicComponent) App.getApp(this).getComponentsHolder().getLogicComponent(getClass(), new MainActivityModule(mRepository, mapper));
         component.inject(this);
         mPresenter.attachView(this);
+        map = new HashMap<>();
+        map.put("key", "trnsl.1.1.20170504T104836Z.704d64c90ed3fc09.0c073c975fdca419ff33264c65a2fd744454e99b");
+        map.put("lang", "en-ru");
     }
 
     @Override
