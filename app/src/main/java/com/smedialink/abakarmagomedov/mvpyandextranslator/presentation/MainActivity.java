@@ -2,6 +2,8 @@ package com.smedialink.abakarmagomedov.mvpyandextranslator.presentation;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.smedialink.abakarmagomedov.mvpyandextranslator.App;
@@ -20,6 +22,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements View {
@@ -34,14 +37,17 @@ public class MainActivity extends AppCompatActivity implements View {
 
 
     @OnClick(R.id.button)
-    void onButtonClick(){
+    public void onButtonClick(){
         mPresenter.getData(map);
+        Log.d("Click", "clicked");
     }
 
+    @SuppressWarnings("all")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         LogicComponent component = (LogicComponent) App.getApp(this).getComponentsHolder().getLogicComponent(getClass(), new MainActivityModule(mRepository, mapper));
         component.inject(this);
         mPresenter.attachView(this);
