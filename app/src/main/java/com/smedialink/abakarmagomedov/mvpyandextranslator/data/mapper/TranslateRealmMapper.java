@@ -13,8 +13,11 @@ import javax.inject.Inject;
 
 public class TranslateRealmMapper implements Mapper<TranslateRealm, Translate> {
 
-    @Inject GsonManager mGson;
+    private final GsonManager mGson;
 
+    public TranslateRealmMapper(GsonManager gson) {
+        mGson = gson;
+    }
 
     @Override
     public TranslateRealm mapTo(Translate translate) {

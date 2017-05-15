@@ -34,12 +34,15 @@ public class DataStoreImp extends BaseDataStore implements DataStore<Translate> 
 
 
     private Observable<Translate> fetchCached(HashMap<String,String> hashMap) {
-        TranslateRealm cachedDiscounts = Realm.getDefaultInstance()
+        TranslateRealm cachedWords = Realm.getDefaultInstance()
                 .where(TranslateRealm.class)
                 .equalTo("text", hashMap.get("text"))
                 .findFirst();
 
-        return Observable.just(cachedDiscounts)
-                .map(mapper::mapFrom);
+        if(cachedWords != null) {
+            return Observable.just(cachedWords)
+                    .map(mapper::mapFrom);
+        }
+        return Observable.empty();
     }
 }

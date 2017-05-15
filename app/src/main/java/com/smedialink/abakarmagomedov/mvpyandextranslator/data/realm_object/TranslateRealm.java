@@ -4,6 +4,7 @@ package com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object;
 import java.util.List;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by abakarmagomedov on 12/05/17.
@@ -11,6 +12,7 @@ import io.realm.RealmObject;
 
 public class TranslateRealm extends RealmObject {
 
+    @PrimaryKey
     private String text;
     private String translate = null;
 

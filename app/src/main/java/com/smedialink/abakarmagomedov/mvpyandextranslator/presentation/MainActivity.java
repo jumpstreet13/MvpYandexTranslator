@@ -27,9 +27,6 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements View {
 
-
-    @Inject Mapper<TranslateRealm, Translate> mapper;
-    @Inject WordsRepository mRepository;
     @Inject Presenter mPresenter;
     @BindView(R.id.text) EditText englishText;
     @BindView(R.id.translate) EditText translate;
@@ -49,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements View {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        LogicComponent component = (LogicComponent) App.getApp(this).getComponentsHolder().getLogicComponent(getClass(), new MainActivityModule(mRepository, mapper));
+        LogicComponent component = (LogicComponent) App.getApp(this).getComponentsHolder().getLogicComponent(getClass(), new MainActivityModule());
         component.inject(this);
         mPresenter.attachView(this);
         map = new HashMap<>();

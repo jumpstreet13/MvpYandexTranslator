@@ -34,13 +34,6 @@ public class UtilsModule {
     @Singleton
     @NonNull
     @Provides
-    Gson provideGson() {
-        return new Gson();
-    }
-
-    @Singleton
-    @NonNull
-    @Provides
     GsonManager provideGsonManager(Gson gson) {
         return new GsonManager(gson);
     }
@@ -48,15 +41,15 @@ public class UtilsModule {
     @Singleton
     @NonNull
     @Provides
-    Mapper<TranslateRealm, Translate> provideMapper() {
-        return new TranslateRealmMapper();
+    Mapper<TranslateRealm, Translate> provideMapper(GsonManager gsonManager) {
+        return new TranslateRealmMapper(gsonManager);
     }
 
     @Singleton
     @NonNull
     @Provides
     @CloudStore
-    DataStore<Translate> provideCloudStore(Mapper<TranslateRealm, Translate> mapper, YandexApi yandexApi){
+    DataStore<Translate> provideCloudStore(Mapper<TranslateRealm, Translate> mapper, YandexApi yandexApi) {
         return new DataStoreCloudImp(mapper, yandexApi);
     }
 
@@ -64,16 +57,15 @@ public class UtilsModule {
     @NonNull
     @Provides
     @DefaultStore
-    DataStore<Translate> provideBaseStore(Mapper<TranslateRealm, Translate> mapper){
+    DataStore<Translate> provideBaseStore(Mapper<TranslateRealm, Translate> mapper) {
         return new DataStoreImp(mapper);
     }
-
 
 
     @Singleton
     @NonNull
     @Provides
-    WordsRepository provideWordsRepository(@CloudStore DataStore<Translate> cloud, @DefaultStore DataStore<Translate> base){
+    WordsRepository provideWordsRepository(@CloudStore DataStore<Translate> cloud, @DefaultStore DataStore<Translate> base) {
         return new WordsRepositoryImp(cloud, base);
     }
 }

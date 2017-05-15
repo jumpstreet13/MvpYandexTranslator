@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Translate {
 
-    private String text;
+    private transient String text;
 
     @SerializedName("code")
     @Expose

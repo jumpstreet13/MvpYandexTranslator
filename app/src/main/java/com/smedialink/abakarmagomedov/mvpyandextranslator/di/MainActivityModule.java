@@ -23,18 +23,9 @@ import dagger.Provides;
 public class MainActivityModule implements LogicModule {
 
 
-    private final WordsRepository repository;
-    private final Mapper<TranslateRealm, Translate> mapper;
-
-
-    public MainActivityModule(WordsRepository repository, Mapper<TranslateRealm, Translate> mapper) {
-        this.repository = repository;
-        this.mapper = mapper;
-    }
-
     @LogicScope
     @Provides
-    Interactor provideInteractor(){
+    Interactor provideInteractor(WordsRepository repository, Mapper<TranslateRealm, Translate> mapper){
         return new InteractorImp(repository, mapper);
     }
 
