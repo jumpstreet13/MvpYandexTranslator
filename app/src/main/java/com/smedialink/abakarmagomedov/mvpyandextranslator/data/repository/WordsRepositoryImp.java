@@ -29,6 +29,7 @@ public class WordsRepositoryImp implements  WordsRepository {
         this.cloudStore = cloudStore;
     }
 
+
     @Override
     public Observable<Translate> query(HashMap<String, String> hashMap) {
         return store.wordsList(hashMap);

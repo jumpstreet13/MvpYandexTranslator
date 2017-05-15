@@ -7,8 +7,10 @@ import org.reactivestreams.Subscription;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
+import io.reactivex.SingleSource;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 
 /**
  * Created by abakarmagomedov on 12/05/17.
