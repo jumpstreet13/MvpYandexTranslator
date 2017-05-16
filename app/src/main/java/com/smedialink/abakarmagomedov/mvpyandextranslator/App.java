@@ -3,7 +3,14 @@ package com.smedialink.abakarmagomedov.mvpyandextranslator;
 import android.app.Application;
 import android.content.Context;
 
+import com.facebook.stetho.InspectorModulesProvider;
+import com.facebook.stetho.Stetho;
+import com.facebook.stetho.inspector.protocol.ChromeDevtoolsDomain;
+import com.facebook.stetho.inspector.protocol.module.Inspector;
+
 import io.realm.Realm;
+import io.realm.annotations.RealmModule;
+import io.realm.internal.RealmProxyMediator;
 
 /**
  * Created by abakarmagomedov on 14/05/17.
@@ -21,6 +28,15 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         Realm.init(this);
+
+
+        Stetho.initialize(
+                Stetho.newInitializerBuilder(this)
+                        .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                        .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                        .build());
+
+
         componentsHolder = new ComponentsHolder(this);
         componentsHolder.init();
     }

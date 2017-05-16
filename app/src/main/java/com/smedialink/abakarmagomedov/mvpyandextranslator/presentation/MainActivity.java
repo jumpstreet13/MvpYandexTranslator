@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View {
 
     @Override
     public void fetchData(List<String> translate) {
+        this.translate.setText("");
         for (String s : translate) {
             this.translate.append(s);
         }

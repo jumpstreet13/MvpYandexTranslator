@@ -29,6 +29,9 @@ public class TranslateRealmMapper implements Mapper<TranslateRealm, Translate> {
 
     @Override
     public Translate mapFrom(TranslateRealm translateRealm) {
-        return null;
+        Translate translate = new Translate();
+        translate.setText(translateRealm.getText());
+        translate.setTranslate(mGson.fromJson(translateRealm.getTranslate()));
+        return translate;
     }
 }

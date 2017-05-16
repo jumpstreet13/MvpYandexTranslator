@@ -10,6 +10,8 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.managers.RealmManager;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -25,9 +27,13 @@ public abstract class BaseDataStore {
     }
 
     Observable<Translate> fetchResults(Observable<Translate> observable){
-        return observable.observeOn(Schedulers.computation())
+        return observable.observeOn(Schedulers.io())
                 .map(mapper::mapTo)
                 .doOnNext(RealmManager::writeToRealm)
-                .map(mapper::mapFrom);
+                .map(mapper::mapFrom)
+                .onErrorResumeNext(throwable -> {
+                    throwable.printStackTrace();
+                    return Observable.empty();
+                });
     }
 }

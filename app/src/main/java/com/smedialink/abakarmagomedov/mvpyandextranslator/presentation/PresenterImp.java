@@ -1,5 +1,7 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.presentation;
 
+import android.util.Log;
+
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 
 import org.reactivestreams.Subscription;
@@ -8,9 +10,11 @@ import java.util.HashMap;
 
 import io.reactivex.Observable;
 import io.reactivex.SingleSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by abakarmagomedov on 12/05/17.
@@ -30,11 +34,11 @@ public class PresenterImp implements Presenter {
 
     @Override
     public void getData(HashMap<String, String> hashMap) {
-        mSubscription = Observable.concat(mInteractor.getWordFromBase(hashMap), mInteractor.getWordFromCloud(hashMap))
+        mSubscription = Observable.merge(mInteractor.getWordFromBase(hashMap), mInteractor.getWordFromCloud(hashMap))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .first(new Translate())
-                .subscribe(translate -> {
-                    mView.fetchData(translate.getTranslate());
-                });
+                .subscribe(translate -> mView.fetchData(translate.getTranslate()));
     }
 
     @Override
