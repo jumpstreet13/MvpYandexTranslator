@@ -1,5 +1,7 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.presentation;
 
+import android.app.job.JobScheduler;
+import android.app.job.JobService;
 import android.util.Log;
 
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
@@ -38,12 +40,9 @@ public class PresenterImp implements Presenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .first(new Translate())
-                .subscribe(new Consumer<Translate>() {
-                    @Override
-                    public void accept(Translate translate) throws Exception {
-                        if(translate.getTranslate() == null) mView.error("word has not been found");
-                        else mView.fetchData(translate.getTranslate());
-                    }
+                .subscribe(translate -> {
+                    if(translate.getTranslate() == null) mView.error("word has not been found");
+                    else mView.fetchData(translate.getTranslate());
                 }, Throwable::printStackTrace);
     }
 
@@ -51,6 +50,7 @@ public class PresenterImp implements Presenter {
     public void attachView(View view) {
         mView = view;
     }
+
 
     @Override
     public void detachView() {
