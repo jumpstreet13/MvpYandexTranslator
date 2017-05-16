@@ -62,6 +62,11 @@ public class MainActivity extends AppCompatActivity implements View {
         }
     }
 
+    @Override
+    public void error(String error) {
+        Log.d("Somethig", "went wrong");
+    }
+
 
     @Override
     protected void onDestroy() {

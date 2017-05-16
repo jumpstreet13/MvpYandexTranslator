@@ -38,7 +38,13 @@ public class PresenterImp implements Presenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .first(new Translate())
-                .subscribe(translate -> mView.fetchData(translate.getTranslate()));
+                .subscribe(new Consumer<Translate>() {
+                    @Override
+                    public void accept(Translate translate) throws Exception {
+                        if(translate.getTranslate() == null) mView.error("word has not been found");
+                        else mView.fetchData(translate.getTranslate());
+                    }
+                }, Throwable::printStackTrace);
     }
 
     @Override

@@ -1,15 +1,16 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.Mapper;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.TranslateRealm;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Function;
 import io.realm.Realm;
 
 /**
@@ -26,19 +27,22 @@ public class DataStoreImp extends BaseDataStore implements DataStore<Translate> 
 
     @Override
     public Observable<Translate> wordsList(HashMap<String, String> hashMap) {
-        return this.fetchResults(fetchCached(hashMap));
+        return this.fetchResults(fetchCached(hashMap), hashMap);
     }
 
 
-
-    private Observable<Translate> fetchCached(HashMap<String,String> hashMap) {
+    private Observable<Translate> fetchCached(HashMap<String, String> hashMap) {
         TranslateRealm cachedWords = Realm.getDefaultInstance()
                 .where(TranslateRealm.class)
                 .equalTo("text", hashMap.get("text"))
                 .findFirst();
 
-        if(cachedWords != null) {
-            return Observable.just(cachedWords)
+
+        if (cachedWords != null) {
+            TranslateRealm translateRealm = new TranslateRealm();
+            translateRealm.setText(cachedWords.getText());
+            translateRealm.setTranslate(cachedWords.getTranslate());
+            return Observable.just(translateRealm)
                     .map(mapper::mapFrom);
         }
         return Observable.empty();

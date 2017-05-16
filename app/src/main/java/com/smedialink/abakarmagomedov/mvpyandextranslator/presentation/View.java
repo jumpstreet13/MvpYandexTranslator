@@ -9,4 +9,5 @@ import java.util.List;
 public interface View {
 
     void fetchData(List<String> translate);
+    void error(String error);
 }

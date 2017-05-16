@@ -1,5 +1,7 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.managers;
 
+import android.util.Log;
+
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.TranslateRealm;
 
 import io.realm.Realm;
@@ -13,7 +15,9 @@ public class RealmManager {
 
 
     public static void writeToRealm(final TranslateRealm translateRealm){
-        Realm.getDefaultInstance().executeTransaction(realm -> realm.copyToRealmOrUpdate(translateRealm));
+
+        Realm.getDefaultInstance().
+                executeTransaction(realm -> realm.copyToRealmOrUpdate(translateRealm));
     }
 
 }

@@ -2,11 +2,13 @@ package com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource;
 
 import android.support.annotation.NonNull;
 
+import com.smedialink.abakarmagomedov.mvpyandextranslator.ComponentsHolder;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.Mapper;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.TranslateRealm;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.managers.RealmManager;
 
+import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -26,9 +28,12 @@ public abstract class BaseDataStore {
         this.mapper = mapper;
     }
 
-    Observable<Translate> fetchResults(Observable<Translate> observable){
+    Observable<Translate> fetchResults(Observable<Translate> observable, HashMap<String, String> hashMap){
         return observable.observeOn(Schedulers.io())
-                .map(mapper::mapTo)
+                .map(translate -> {
+                    translate.setText(hashMap.get("text"));
+                    return mapper.mapTo(translate);
+                })
                 .doOnNext(RealmManager::writeToRealm)
                 .map(mapper::mapFrom)
                 .onErrorResumeNext(throwable -> {

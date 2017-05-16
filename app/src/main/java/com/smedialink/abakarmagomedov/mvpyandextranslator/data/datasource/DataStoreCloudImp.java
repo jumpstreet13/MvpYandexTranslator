@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.functions.Function;
 
 /**
  * Created by abakarmagomedov on 12/05/17.
@@ -31,6 +33,7 @@ public class DataStoreCloudImp extends BaseDataStore implements DataStore<Transl
 
     @Override
     public Observable<Translate> wordsList(HashMap<String, String> hashMap) {
-        return this.fetchResults(api.getTranslate(hashMap));
+        return this.fetchResults(api.getTranslate(hashMap), hashMap)
+                .onErrorResumeNext((Function<Throwable, ObservableSource<? extends Translate>>) Observable::error);
     }
 }
