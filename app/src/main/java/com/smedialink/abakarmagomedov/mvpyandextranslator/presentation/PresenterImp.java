@@ -38,7 +38,7 @@ public class PresenterImp extends BasePresenterImp<View, Interactor> implements 
                 .subscribe(translate -> {
                     if(translate.getTranslate() == null) getView().error("word has not been found");
                     else getView().fetchData(translate.getTranslate());
-                }, Throwable::printStackTrace);
+                }, throwable -> getView().error("No interten connection")); // TODO: 17/05/17 Should whatch what kind of issue snackBar when there is no connection
     }
 
 

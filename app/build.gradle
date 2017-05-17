@@ -1,6 +1,9 @@
 buildscript {
     repositories {
         mavenCentral()
+        maven {
+            url 'https://github.com/uPhyca/stetho-realm/raw/master/maven-repo'
+        }
     }
 
     dependencies {
@@ -17,6 +20,7 @@ repositories {
 apply plugin: 'com.android.application'
 apply plugin: 'realm-android'
 apply plugin: 'me.tatarka.retrolambda'
+
 
 
 android {
@@ -45,11 +49,6 @@ android {
 
 }
 
-repositories {
-    maven {
-        url 'https://github.com/uPhyca/stetho-realm/raw/master/maven-repo'
-    }
-}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -79,6 +78,7 @@ dependencies {
         exclude module: "support-v13"
     }
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.4.0'
+
 }
 
 retrolambda {
