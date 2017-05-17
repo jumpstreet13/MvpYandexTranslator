@@ -1,8 +1,10 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.presentation;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.widget.EditText;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.App;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.R;
@@ -25,6 +28,7 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.di.base.LogicComponent
 
 import java.io.IOException;
 import java.security.Permission;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +44,8 @@ import permissions.dispatcher.RuntimePermissions;
 @RuntimePermissions
 public class MainActivity extends AppCompatActivity implements View {
 
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
     @Inject CameraSource camera;
     @Inject TextRecognizer recognizer;
     @Inject Presenter mPresenter;
@@ -50,9 +56,8 @@ public class MainActivity extends AppCompatActivity implements View {
 
     @OnClick(R.id.fbi)
     void onFbiClick() {
-        MainActivityPermissionsDispatcher.startCameraWithCheck(this);
+        MainActivityPermissionsDispatcher.getPhotoWithCheck(this);
     }
-
 
     @OnClick(R.id.button)
     void onButtonClick() {
@@ -98,7 +103,28 @@ public class MainActivity extends AppCompatActivity implements View {
     }
 
     @NeedsPermission(Manifest.permission.CAMERA)
-    public void startCamera() {
-        
+    public void getPhoto() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            List<String> list = new ArrayList<>();
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            SparseArray<TextBlock> textBlocks = recognizer.detect(new Frame.Builder().setBitmap(imageBitmap).build());
+            for (int i = 0; i < textBlocks.size(); i++) {
+                TextBlock textBlock = textBlocks.get(textBlocks.keyAt(i));
+                list.add(textBlock.getValue());
+            }
+            HashMap<String, String> hashMap = new HashMap<String,String>();
+            hashMap.put("text", list.get(0));
+            mPresenter.getData(hashMap);
+        }
+    }
+
 }
