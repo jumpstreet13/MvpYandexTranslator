@@ -1,13 +1,12 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
+
 
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.Mapper;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.TranslateRealm;
 
-import java.util.Arrays;
 import java.util.HashMap;
 
 import io.reactivex.Observable;

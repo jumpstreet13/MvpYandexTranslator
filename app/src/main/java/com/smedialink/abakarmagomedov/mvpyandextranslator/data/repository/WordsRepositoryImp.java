@@ -16,19 +16,18 @@ import io.reactivex.Observable;
  * Created by abakarmagomedov on 12/05/17.
  */
 
-public class WordsRepositoryImp implements  WordsRepository {
+public class WordsRepositoryImp implements WordsRepository {
 
     private DataStore<Translate> store;
     private DataStore<Translate> defaultStore;
     private DataStore<Translate> cloudStore;
 
     public WordsRepositoryImp(@DefaultStore @NonNull DataStore<Translate> defaultStore,
-                                  @CloudStore @NonNull DataStore<Translate> cloudStore) {
+                              @CloudStore @NonNull DataStore<Translate> cloudStore) {
         this.configKindStore(STORE.LOCAL);
         this.defaultStore = defaultStore;
         this.cloudStore = cloudStore;
     }
-
 
     @Override
     public Observable<Translate> query(HashMap<String, String> hashMap) {
@@ -42,7 +41,7 @@ public class WordsRepositoryImp implements  WordsRepository {
 
     @Override
     public WordsRepository configKindStore(STORE kind) {
-        switch (kind){
+        switch (kind) {
             case LOCAL:
                 this.store = defaultStore;
                 break;

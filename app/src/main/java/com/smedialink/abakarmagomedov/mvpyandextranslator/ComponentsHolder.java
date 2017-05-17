@@ -2,14 +2,9 @@ package com.smedialink.abakarmagomedov.mvpyandextranslator;
 
 import android.content.Context;
 
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.Mapper;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.TranslateRealm;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository.WordsRepository;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.AppComponent;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.AppModule;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.DaggerAppComponent;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.di.LogicaComponent;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.base.LogicComponent;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.base.LogicComponentBuilder;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.base.LogicModule;

@@ -1,11 +1,19 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.presentation;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseArray;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.gms.vision.CameraSource;
+import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.text.TextRecognizer;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.App;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.R;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
@@ -15,6 +23,8 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository.WordsR
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.MainActivityModule;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.base.LogicComponent;
 
+import java.io.IOException;
+import java.security.Permission;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,17 +34,28 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.RuntimePermissions;
 
+@RuntimePermissions
 public class MainActivity extends AppCompatActivity implements View {
 
+    @Inject CameraSource camera;
+    @Inject TextRecognizer recognizer;
     @Inject Presenter mPresenter;
     @BindView(R.id.text) EditText englishText;
     @BindView(R.id.translate) EditText translate;
     private HashMap<String, String> map;
 
 
+    @OnClick(R.id.fbi)
+    void onFbiClick() {
+        MainActivityPermissionsDispatcher.startCameraWithCheck(this);
+    }
+
+
     @OnClick(R.id.button)
-    public void onButtonClick(){
+    void onButtonClick() {
         map.put("text", englishText.getText().toString());
         mPresenter.getData(map);
         Log.d("Click", "clicked");
@@ -64,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements View {
 
     @Override
     public void error(String error) {
-        Log.d("Somethig", "went wrong");
+        Log.d("Somethig", error);
     }
 
 
@@ -74,5 +95,10 @@ public class MainActivity extends AppCompatActivity implements View {
         if (isFinishing()) {
             App.getApp(this).getComponentsHolder().releaseLogicComponent(getClass());
         }
+    }
+
+    @NeedsPermission(Manifest.permission.CAMERA)
+    public void startCamera() {
+        
     }
 }

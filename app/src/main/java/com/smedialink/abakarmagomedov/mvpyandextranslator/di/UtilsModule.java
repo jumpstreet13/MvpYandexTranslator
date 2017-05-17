@@ -1,8 +1,12 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.di;
 
+import android.content.Context;
+import android.hardware.Camera;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 
+import com.google.android.gms.vision.CameraSource;
+import com.google.android.gms.vision.text.TextRecognizer;
 import com.google.gson.Gson;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.DataStore;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.DataStoreCloudImp;
@@ -68,4 +72,38 @@ public class UtilsModule {
     WordsRepository provideWordsRepository(@CloudStore DataStore<Translate> cloud, @DefaultStore DataStore<Translate> base) {
         return new WordsRepositoryImp(cloud, base);
     }
+
+
+    @Singleton
+    @NonNull
+    @Provides TextRecognizer provideTextREcognizer(Context context){
+        return new TextRecognizer.Builder(context).build();
+    }
+
+
+    @Singleton
+    @NonNull
+    @Provides CameraSource provideCameraSource(Context context, TextRecognizer recognizer){
+        return new CameraSource.Builder(context, recognizer)
+                .setFacing(CameraSource.CAMERA_FACING_BACK)
+                .setRequestedPreviewSize(1280, 1024)
+                .setRequestedFps(15.0f)
+                .setAutoFocusEnabled(true)
+                .build();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

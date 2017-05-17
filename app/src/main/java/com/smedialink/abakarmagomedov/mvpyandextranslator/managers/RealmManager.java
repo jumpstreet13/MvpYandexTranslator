@@ -15,7 +15,6 @@ public class RealmManager {
 
 
     public static void writeToRealm(final TranslateRealm translateRealm){
-
         Realm.getDefaultInstance().
                 executeTransaction(realm -> realm.copyToRealmOrUpdate(translateRealm));
     }
