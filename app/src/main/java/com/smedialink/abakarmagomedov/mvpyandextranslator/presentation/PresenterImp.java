@@ -7,15 +7,13 @@ import android.util.Log;
 
 import com.smedialink.abakarmagomedov.mvpyandextranslator.BasePresenter;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.BasePresenterImp;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
-
-import org.reactivestreams.Subscription;
 
 import java.util.HashMap;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -30,15 +28,13 @@ public class PresenterImp extends BasePresenterImp<View, Interactor> implements 
         super(interactor);
     }
 
-
     @Override
     public void getData(HashMap<String, String> hashMap) {
         mSubscription = Observable.merge(getInteractor().getWordFromBase(hashMap), getInteractor().getWordFromCloud(hashMap))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(disposable -> getView().showProgress())
-                .doOnTerminate(() -> getView().hideProgress())
-                .first(new Translate())
+                .doAfterTerminate(() -> getView().hideProgress())
                 .subscribe(translate -> {
                     if(translate.getTranslate() == null) getView().error("word has not been found");
                     else getView().fetchData(translate.getTranslate());
