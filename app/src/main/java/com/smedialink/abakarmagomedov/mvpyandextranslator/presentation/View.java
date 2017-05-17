@@ -10,4 +10,6 @@ public interface View {
 
     void fetchData(List<String> translate);
     void error(String error);
+    void showProgress();
+    void hideProgress();
 }

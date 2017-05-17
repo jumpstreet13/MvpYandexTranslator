@@ -14,6 +14,7 @@ import io.reactivex.Observable;
 import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -39,6 +40,8 @@ public class PresenterImp implements Presenter {
         mSubscription = Observable.merge(mInteractor.getWordFromBase(hashMap), mInteractor.getWordFromCloud(hashMap))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(disposable -> mView.showProgress())
+                .doOnTerminate(() -> mView.hideProgress())
                 .first(new Translate())
                 .subscribe(translate -> {
                     if(translate.getTranslate() == null) mView.error("word has not been found");

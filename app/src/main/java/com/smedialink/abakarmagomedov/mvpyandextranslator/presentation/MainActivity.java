@@ -12,6 +12,7 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.CameraSource;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View {
     @Inject Presenter mPresenter;
     @BindView(R.id.text) EditText englishText;
     @BindView(R.id.translate) TextView translate;
+    @BindView(R.id.progressBar) ProgressBar progress;
     private HashMap<String, String> map;
 
 
@@ -94,6 +96,16 @@ public class MainActivity extends AppCompatActivity implements View {
     @Override
     public void error(String error) {
         Log.d("Something", error);
+    }
+
+    @Override
+    public void showProgress() {
+        progress.setVisibility(android.view.View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        progress.setVisibility(android.view.View.GONE);
     }
 
 
