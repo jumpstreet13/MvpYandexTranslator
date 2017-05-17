@@ -2,8 +2,11 @@ package com.smedialink.abakarmagomedov.mvpyandextranslator.presentation;
 
 import android.app.job.JobScheduler;
 import android.app.job.JobService;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.smedialink.abakarmagomedov.mvpyandextranslator.BasePresenter;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.BasePresenterImp;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 
 import org.reactivestreams.Subscription;
@@ -11,53 +14,40 @@ import org.reactivestreams.Subscription;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
-import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by abakarmagomedov on 12/05/17.
  */
 
-public class PresenterImp implements Presenter {
+public class PresenterImp extends BasePresenterImp<View, Interactor> implements Presenter {
 
     private Disposable mSubscription;
-    private Interactor mInteractor;
-    private View mView;
 
-
-    public PresenterImp(Interactor interactor) {
-        mInteractor = interactor;
+    public PresenterImp(@NonNull Interactor interactor) {
+        super(interactor);
     }
 
 
     @Override
     public void getData(HashMap<String, String> hashMap) {
-        mSubscription = Observable.merge(mInteractor.getWordFromBase(hashMap), mInteractor.getWordFromCloud(hashMap))
+        mSubscription = Observable.merge(getInteractor().getWordFromBase(hashMap), getInteractor().getWordFromCloud(hashMap))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(disposable -> mView.showProgress())
-                .doOnTerminate(() -> mView.hideProgress())
+                .doOnSubscribe(disposable -> getView().showProgress())
+                .doOnTerminate(() -> getView().hideProgress())
                 .first(new Translate())
                 .subscribe(translate -> {
-                    if(translate.getTranslate() == null) mView.error("word has not been found");
-                    else mView.fetchData(translate.getTranslate());
+                    if(translate.getTranslate() == null) getView().error("word has not been found");
+                    else getView().fetchData(translate.getTranslate());
                 }, Throwable::printStackTrace);
     }
 
-    @Override
-    public void attachView(View view) {
-        mView = view;
-    }
-
 
     @Override
-    public void detachView() {
-        mView = null;
-        if(!mSubscription.isDisposed()) mSubscription.dispose();
+    public Disposable hasSubscription() {
+        return mSubscription;
     }
 }

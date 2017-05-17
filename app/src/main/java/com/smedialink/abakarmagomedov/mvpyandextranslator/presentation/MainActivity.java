@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements View {
         super.onDestroy();
         if (isFinishing()) {
             App.getApp(this).getComponentsHolder().releaseLogicComponent(getClass());
+            mPresenter.detachView();
         }
     }
 
