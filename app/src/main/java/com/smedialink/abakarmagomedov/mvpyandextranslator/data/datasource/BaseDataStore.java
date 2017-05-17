@@ -13,6 +13,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
@@ -35,10 +36,6 @@ public abstract class BaseDataStore {
                     return mapper.mapTo(translate);
                 })
                 .doOnNext(RealmManager::writeToRealm)
-                .map(mapper::mapFrom)
-                .onErrorResumeNext(throwable -> {
-                    throwable.printStackTrace();
-                    return Observable.empty();
-                });
+                .map(mapper::mapFrom);
     }
 }

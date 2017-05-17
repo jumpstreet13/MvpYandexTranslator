@@ -2,6 +2,7 @@ package com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource;
 
 import android.support.annotation.NonNull;
 
+import com.fernandocejas.frodo.annotation.RxLogObservable;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.Mapper;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.net.YandexApi;
@@ -33,7 +34,7 @@ public class DataStoreCloudImp extends BaseDataStore implements DataStore<Transl
 
     @Override
     public Observable<Translate> wordsList(HashMap<String, String> hashMap) {
-        return this.fetchResults(api.getTranslate(hashMap), hashMap)
-                .onErrorResumeNext((Function<Throwable, ObservableSource<? extends Translate>>) Observable::error);
+        return this.fetchResults(api.getTranslate(hashMap), hashMap);
+
     }
 }
