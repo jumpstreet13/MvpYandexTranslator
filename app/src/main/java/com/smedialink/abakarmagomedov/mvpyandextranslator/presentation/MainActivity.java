@@ -21,6 +21,7 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.App;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.R;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.Mapper;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.net.Links;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.TranslateRealm;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository.WordsRepository;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.MainActivityModule;
@@ -72,11 +73,12 @@ public class MainActivity extends AppCompatActivity implements View {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        LogicComponent component = (LogicComponent) App.getApp(this).getComponentsHolder().getLogicComponent(getClass(), new MainActivityModule());
+        LogicComponent component = (LogicComponent) App.getApp(this).getComponentsHolder()
+                .getLogicComponent(getClass(), new MainActivityModule());
         component.inject(this);
         mPresenter.attachView(this);
         map = new HashMap<>();
-        map.put("key", "trnsl.1.1.20170504T104836Z.704d64c90ed3fc09.0c073c975fdca419ff33264c65a2fd744454e99b");
+        map.put("key", Links.ACCESS_TOKEN);
         map.put("lang", "en-ru");
     }
 
@@ -90,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View {
 
     @Override
     public void error(String error) {
-        Log.d("Somethig", error);
+        Log.d("Something", error);
     }
 
 
@@ -112,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements View {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data != null) {
             List<String> list = new ArrayList<>();
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
@@ -121,9 +123,13 @@ public class MainActivity extends AppCompatActivity implements View {
                 TextBlock textBlock = textBlocks.get(textBlocks.keyAt(i));
                 list.add(textBlock.getValue());
             }
-            HashMap<String, String> hashMap = new HashMap<String,String>();
-            hashMap.put("text", list.get(0));
-            mPresenter.getData(hashMap);
+            if(!list.isEmpty()) {
+                map.put("text", list.get(0));
+                mPresenter.getData(map);
+            }else{
+                error("I have found nothing");
+            }
+
         }
     }
 
