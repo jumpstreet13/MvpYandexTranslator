@@ -12,6 +12,7 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Frame;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements View {
     @Inject TextRecognizer recognizer;
     @Inject Presenter mPresenter;
     @BindView(R.id.text) EditText englishText;
-    @BindView(R.id.translate) EditText translate;
+    @BindView(R.id.translate) TextView translate;
     private HashMap<String, String> map;
 
 
