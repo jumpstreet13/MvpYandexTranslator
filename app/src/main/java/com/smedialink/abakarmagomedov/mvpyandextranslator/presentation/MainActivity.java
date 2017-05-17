@@ -91,6 +91,10 @@ public class MainActivity extends AppCompatActivity implements View {
 
     @Override
     public void fetchData(List<String> translate) {
+        if(translate == null) {
+            error("No internet connection");
+            return;
+        }
         this.translate.setText("");
         for (String s : translate) {
             this.translate.append(s);

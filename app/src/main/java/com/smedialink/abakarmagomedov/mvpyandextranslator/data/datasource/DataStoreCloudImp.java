@@ -34,7 +34,12 @@ public class DataStoreCloudImp extends BaseDataStore implements DataStore<Transl
 
     @Override
     public Observable<Translate> wordsList(HashMap<String, String> hashMap) {
-        return this.fetchResults(api.getTranslate(hashMap), hashMap);
+        return this.fetchResults(api.getTranslate(hashMap), hashMap).onErrorResumeNext(new Function<Throwable, ObservableSource<? extends Translate>>() {
+            @Override
+            public ObservableSource<? extends Translate> apply(Throwable throwable) throws Exception {
+                return Observable.empty();
+            }
+        });
 
     }
 }
