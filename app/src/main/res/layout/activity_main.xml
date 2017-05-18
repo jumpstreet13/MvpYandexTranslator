@@ -45,13 +45,14 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fbi"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:src="@drawable/ic_camera_alt_black_24dp"
+        android:layout_width="@dimen/size_of_fab"
+        android:layout_height="@dimen/size_of_fab"
         android:layout_margin="@dimen/fab_margins"
         app:layout_anchor="@+id/text"
         app:layout_anchorGravity="bottom|right"/>
 
-    <Button
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/translate_button"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
