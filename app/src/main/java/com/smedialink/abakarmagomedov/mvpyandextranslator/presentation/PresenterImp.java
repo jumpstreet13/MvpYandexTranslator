@@ -12,6 +12,8 @@ import java.util.HashMap;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -32,10 +34,14 @@ public class PresenterImp extends BasePresenterImp<View, Interactor> implements 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(disposable -> getView().showProgress())
-                .subscribe(translate -> {
-                    getView().fetchData(translate.getTranslate());
+                .doOnNext(translate -> getView().fetchData(translate.getTranslate()))
+                .any(translate -> {
+                    if(translate == null) return false;
+                    else return true;
+                }).subscribe(aBoolean -> {
+                    if(!aBoolean) getView().error("No internet connection");
                     getView().hideProgress();
-                }, throwable -> getView().error("No interten connection")); // TODO: 17/05/17 Should whatch what kind of issue snackBar when there is no connection
+                });
     }
 
 
