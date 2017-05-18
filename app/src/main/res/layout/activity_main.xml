@@ -64,6 +64,7 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/middle_text_size"
         android:text="@string/translate_it"
         app:layout_anchor="@+id/root_anchor"
         app:layout_anchorGravity="bottom|center"/>
