@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Frame;
@@ -55,10 +56,8 @@ public class MainActivity extends AppCompatActivity implements View {
     @Inject CameraSource camera;
     @Inject TextRecognizer recognizer;
     @Inject Presenter mPresenter;
-    @BindView(R.id.activity_main) RelativeLayout layout;
     @BindView(R.id.text) EditText englishText;
     @BindView(R.id.translate) TextView translate;
-    @BindView(R.id.progressBar) ProgressBar progress;
     private HashMap<String, String> map;
 
 
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements View {
         MainActivityPermissionsDispatcher.getPhotoWithCheck(this);
     }
 
-    @OnClick(R.id.button)
+    @OnClick(R.id.translate_button)
     void onButtonClick() {
         map.put("text", englishText.getText().toString());
         mPresenter.getData(map);
@@ -103,17 +102,17 @@ public class MainActivity extends AppCompatActivity implements View {
 
     @Override
     public void error(String error) {
-        Snackbar.make(layout, error, Snackbar.LENGTH_SHORT).show();
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showProgress() {
-        progress.setVisibility(android.view.View.VISIBLE);
+
     }
 
     @Override
     public void hideProgress() {
-        progress.setVisibility(android.view.View.GONE);
+
     }
 
 
