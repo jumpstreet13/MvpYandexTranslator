@@ -4,10 +4,13 @@ import android.content.Context;
 import android.hardware.Camera;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.text.TextRecognizer;
 import com.google.gson.Gson;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.R;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.DataStore;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.DataStoreCloudImp;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.DataStoreImp;
@@ -90,6 +93,14 @@ public class UtilsModule {
                 .setRequestedFps(15.0f)
                 .setAutoFocusEnabled(true)
                 .build();
+    }
+
+    @Singleton
+    @NonNull
+    @Provides Animation provideRotateAnimation(Context context){
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.rotate);
+        animation.setRepeatCount(Animation.INFINITE);
+        return animation;
     }
 
 

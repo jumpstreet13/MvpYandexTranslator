@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View {
     @Inject CameraSource camera;
     @Inject TextRecognizer recognizer;
     @Inject Presenter mPresenter;
+    @Inject Animation animation;
     @BindView(R.id.text) EditText englishText;
     @BindView(R.id.translate) TextView translate;
     @BindView(R.id.fbi) FloatingActionButton fba;
@@ -92,11 +94,13 @@ public class MainActivity extends AppCompatActivity implements View {
     }
 
     @Override
-    public void fetchData(List<String> translate) {
+    public void fetchData(List<String> translate, String text) {
         if(translate == null) {
             error("No internet connection");
             return;
         }
+        this.englishText.setText("");
+        englishText.setText(text);
         this.translate.setText("");
         for (String s : translate) {
             this.translate.append(s);
@@ -110,12 +114,13 @@ public class MainActivity extends AppCompatActivity implements View {
 
     @Override
     public void showProgress() {
-        fba.startAnimation(AnimationUtils.loadAnimation(this, R.anim.rotate));
+        fba.startAnimation(animation);
     }
 
     @Override
     public void hideProgress() {
-
+        animation.cancel();
+        animation.reset();
     }
 
 

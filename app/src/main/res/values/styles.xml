@@ -10,7 +10,7 @@
 
 
     <style name="TextStyle" parent="Widget.AppCompat.EditText">
-        <item name="android:textColor">@color/blue</item>
+        <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/middle_text_size</item>
         <item name="android:padding">@dimen/middle_padding</item>
         <item name="android:background">@android:color/transparent</item>

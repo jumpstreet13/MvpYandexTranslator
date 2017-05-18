@@ -34,7 +34,7 @@ public class PresenterImp extends BasePresenterImp<View, Interactor> implements 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(disposable -> getView().showProgress())
-                .doOnNext(translate -> getView().fetchData(translate.getTranslate()))
+                .doOnNext(translate -> getView().fetchData(translate.getTranslate(), translate.getText()))
                 .any(translate -> {
                     if(translate == null) return false;
                     else return true;
