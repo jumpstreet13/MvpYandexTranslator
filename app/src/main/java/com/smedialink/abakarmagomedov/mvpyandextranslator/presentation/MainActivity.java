@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements View {
         if (isFinishing()) {
             App.getApp(this).getComponentsHolder().releaseLogicComponent(getClass());
             mPresenter.detachView();
+            recognizer.release();
         }
     }
 
@@ -158,8 +159,6 @@ public class MainActivity extends AppCompatActivity implements View {
             }else{
                 error("I have found nothing");
             }
-
         }
     }
-
 }

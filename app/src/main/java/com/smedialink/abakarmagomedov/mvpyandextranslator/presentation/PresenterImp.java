@@ -35,10 +35,7 @@ public class PresenterImp extends BasePresenterImp<View, Interactor> implements 
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(disposable -> getView().showProgress())
                 .doOnNext(translate -> getView().fetchData(translate.getTranslate(), translate.getText()))
-                .any(translate -> {
-                    if(translate == null) return false;
-                    else return true;
-                }).subscribe(aBoolean -> {
+                .any(translate -> translate != null).subscribe(aBoolean -> {
                     if(!aBoolean) getView().error("No internet connection");
                     getView().hideProgress();
                 });

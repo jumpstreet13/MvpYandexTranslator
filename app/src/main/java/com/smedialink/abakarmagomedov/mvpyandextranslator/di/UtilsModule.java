@@ -79,14 +79,16 @@ public class UtilsModule {
 
     @Singleton
     @NonNull
-    @Provides TextRecognizer provideTextREcognizer(Context context){
+    @Provides
+    TextRecognizer provideTextREcognizer(Context context) {
         return new TextRecognizer.Builder(context).build();
     }
 
 
     @Singleton
     @NonNull
-    @Provides CameraSource provideCameraSource(Context context, TextRecognizer recognizer){
+    @Provides
+    CameraSource provideCameraSource(Context context, TextRecognizer recognizer) {
         return new CameraSource.Builder(context, recognizer)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
                 .setRequestedPreviewSize(1280, 1024)
@@ -97,24 +99,12 @@ public class UtilsModule {
 
     @Singleton
     @NonNull
-    @Provides Animation provideRotateAnimation(Context context){
+    @Provides
+    Animation provideRotateAnimation(Context context) {
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.rotate);
         animation.setRepeatCount(Animation.INFINITE);
         return animation;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
