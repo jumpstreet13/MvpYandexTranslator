@@ -59,8 +59,6 @@ import permissions.dispatcher.RuntimePermissions;
 public class MainActivity extends BaseActivity implements View, Validator.ValidationListener {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
-
-    @Inject Validator validator;
     @Inject CameraSource camera;
     @Inject TextRecognizer recognizer;
     @Inject Presenter mPresenter;
@@ -69,6 +67,7 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
     @BindView(R.id.translate) TextView translate;
     @BindView(R.id.fbi) FloatingActionButton fba;
     private HashMap<String, String> map;
+    private Validator validator;
 
 
     @OnClick(R.id.fbi)
@@ -78,9 +77,7 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
 
     @OnClick(R.id.translate_button)
     void onButtonClick() {
-        map.put("text", englishText.getText().toString());
-        mPresenter.getData(map);
-        Log.d("Click", "clicked");
+        validator.validate();
     }
 
     @SuppressWarnings("all")
@@ -92,6 +89,7 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
         LogicComponent component = (LogicComponent) App.getApp(this).getComponentsHolder()
                 .getLogicComponent(getClass(), new MainActivityModule());
         component.inject(this);
+        validator = new Validator(this);
         validator.setValidationListener(this);
         mPresenter.attachView(this);
         map = new HashMap<>();
@@ -171,7 +169,8 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
 
     @Override
     public void onValidationSucceeded() {
-
+        map.put("text", englishText.getText().toString());
+        mPresenter.getData(map);
     }
 
     @Override
