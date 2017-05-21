@@ -7,6 +7,7 @@ import com.facebook.stetho.InspectorModulesProvider;
 import com.facebook.stetho.Stetho;
 import com.facebook.stetho.inspector.protocol.ChromeDevtoolsDomain;
 import com.facebook.stetho.inspector.protocol.module.Inspector;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.di.AppComponent;
 
 import io.realm.Realm;
 import io.realm.annotations.RealmModule;
@@ -35,7 +36,6 @@ public class App extends Application {
                         .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
                         .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
                         .build());
-
 
         componentsHolder = new ComponentsHolder(this);
         componentsHolder.init();

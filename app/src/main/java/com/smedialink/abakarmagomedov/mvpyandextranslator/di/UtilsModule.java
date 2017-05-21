@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.text.TextRecognizer;
 import com.google.gson.Gson;
+import com.mobsandgeeks.saripaar.Validator;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.R;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.DataStore;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.DataStoreCloudImp;
@@ -104,6 +105,13 @@ public class UtilsModule {
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.rotate);
         animation.setRepeatCount(Animation.INFINITE);
         return animation;
+    }
+
+    @Singleton
+    @NonNull
+    @Provides
+    Validator provideValidator(Context context){
+        return  new Validator(context);
     }
 
 

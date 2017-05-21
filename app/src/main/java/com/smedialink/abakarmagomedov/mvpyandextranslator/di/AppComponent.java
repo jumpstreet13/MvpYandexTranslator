@@ -1,5 +1,6 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.di;
 
+import com.smedialink.abakarmagomedov.mvpyandextranslator.BaseActivity;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.ComponentsHolder;
 
 import javax.inject.Singleton;
@@ -15,4 +16,5 @@ import dagger.Component;
 public interface AppComponent {
 
     void injectComponentsHolder(ComponentsHolder componentsHolder);
+    void injectBaseActivity(BaseActivity baseActivity);
 }

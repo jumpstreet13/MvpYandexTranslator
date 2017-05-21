@@ -26,7 +26,11 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.App;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.BaseActivity;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.R;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.Mapper;
@@ -52,15 +56,16 @@ import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public class MainActivity extends AppCompatActivity implements View {
+public class MainActivity extends BaseActivity implements View, Validator.ValidationListener {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
+    @Inject Validator validator;
     @Inject CameraSource camera;
     @Inject TextRecognizer recognizer;
     @Inject Presenter mPresenter;
     @Inject Animation animation;
-    @BindView(R.id.text) EditText englishText;
+    @NotEmpty @BindView(R.id.text) EditText englishText;
     @BindView(R.id.translate) TextView translate;
     @BindView(R.id.fbi) FloatingActionButton fba;
     private HashMap<String, String> map;
@@ -87,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements View {
         LogicComponent component = (LogicComponent) App.getApp(this).getComponentsHolder()
                 .getLogicComponent(getClass(), new MainActivityModule());
         component.inject(this);
+        validator.setValidationListener(this);
         mPresenter.attachView(this);
         map = new HashMap<>();
         map.put("key", Links.ACCESS_TOKEN);
@@ -105,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements View {
         for (String s : translate) {
             this.translate.append(s);
         }
+        englishText.setSelection(englishText.getText().length());
     }
 
     @Override
@@ -160,5 +167,15 @@ public class MainActivity extends AppCompatActivity implements View {
                 error("I have found nothing");
             }
         }
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        error("Write a word to field");
     }
 }
