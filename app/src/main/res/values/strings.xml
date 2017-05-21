@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MvpYandexTranslator</string>
+    <string name="app_name">Simple Translator</string>
     <string name="translate_it">Translate it!</string>
     <string name="english">english</string>
     <string name="russian">russian</string>
