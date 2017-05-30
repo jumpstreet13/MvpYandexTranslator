@@ -90,7 +90,7 @@
     <LinearLayout
         android:id="@+id/bottomSheet"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="@dimen/bottom_sheet_size"
         android:background="@color/colorPrimary"
         android:gravity="center"
         android:orientation="vertical"

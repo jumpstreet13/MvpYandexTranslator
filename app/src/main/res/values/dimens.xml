@@ -10,5 +10,6 @@
 
     <!--fonts-->
     <dimen name="middle_text_size">16sp</dimen>
+    <dimen name="bottom_sheet_size">150dp</dimen>
 
 </resources>
