@@ -2,24 +2,14 @@ package com.smedialink.abakarmagomedov.mvpyandextranslator.presentation;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,20 +24,13 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.App;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.BaseActivity;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.R;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.custom_views.StringPicker;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.Mapper;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.net.Links;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.TranslateRealm;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository.WordsRepository;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.MainActivityModule;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.base.LogicComponent;
 
-import java.io.IOException;
-import java.security.Permission;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -67,7 +50,8 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
     @Inject Animation animation;
     @NotEmpty @BindView(R.id.text) EditText englishText;
     @BindView(R.id.translate) TextView translate;
-    @BindView(R.id.fbi_photo) FloatingActionButton fba;
+    @BindView(R.id.fbi_photo) FloatingActionButton fbi_photo;
+    @BindView(R.id.fbi_language) FloatingActionButton fbi_language;
     @BindView(R.id.language_picker) StringPicker picker;
     @BindView(R.id.bottomSheet) android.view.View bottomSheet;
     private HashMap<String, String> map;
@@ -132,7 +116,8 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
 
     @Override
     public void showProgress() {
-        fba.startAnimation(animation);
+        fbi_photo.startAnimation(animation);
+        fbi_language.startAnimation(animation);
     }
 
     @Override
