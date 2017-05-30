@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -32,6 +33,7 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.App;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.BaseActivity;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.R;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.custom_views.StringPicker;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.Mapper;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.net.Links;
@@ -65,14 +67,23 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
     @Inject Animation animation;
     @NotEmpty @BindView(R.id.text) EditText englishText;
     @BindView(R.id.translate) TextView translate;
-    @BindView(R.id.fbi) FloatingActionButton fba;
+    @BindView(R.id.fbi_photo) FloatingActionButton fba;
+    @BindView(R.id.language_picker) StringPicker picker;
+    @BindView(R.id.bottomSheet) android.view.View bottomSheet;
     private HashMap<String, String> map;
     private Validator validator;
+    private String[] values = new String[]{"en", "ru", "es", "fr"};
+    private BottomSheetBehavior mBottomSheetBehavior;
 
 
-    @OnClick(R.id.fbi)
+    @OnClick(R.id.fbi_photo)
     void onFbiClick() {
         MainActivityPermissionsDispatcher.getPhotoWithCheck(this);
+    }
+
+    @OnClick(R.id.fbi_language)
+    void onFbiLanguageClick() {
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
     @OnClick(R.id.translate_button)
@@ -94,12 +105,14 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
         mPresenter.attachView(this);
         map = new HashMap<>();
         map.put("key", Links.ACCESS_TOKEN);
-        map.put("lang", "en-ru");
+        map.put("lang", "ru");
+        picker.setValues(values);
+        mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
     }
 
     @Override
     public void fetchData(List<String> translate, String text) {
-        if(translate == null) {
+        if (translate == null) {
             error("No internet connection");
             return;
         }
@@ -158,10 +171,10 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
                 TextBlock textBlock = textBlocks.get(textBlocks.keyAt(i));
                 list.add(textBlock.getValue());
             }
-            if(!list.isEmpty()) {
+            if (!list.isEmpty()) {
                 map.put("text", list.get(0));
                 mPresenter.getData(map);
-            }else{
+            } else {
                 error("I have found nothing");
             }
         }
@@ -170,6 +183,7 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
     @Override
     public void onValidationSucceeded() {
         map.put("text", englishText.getText().toString());
+        map.put("lang", picker.getCurrentValue());
         mPresenter.getData(map);
     }
 
