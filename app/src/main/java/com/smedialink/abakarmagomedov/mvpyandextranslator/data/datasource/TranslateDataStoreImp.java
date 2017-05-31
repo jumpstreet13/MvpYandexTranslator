@@ -1,13 +1,17 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.Mapper;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.TranslateRealm;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.realm.Realm;
@@ -33,16 +37,15 @@ public class TranslateDataStoreImp implements TranslateDataStore {
 
     private Observable<Translate> fetchCached(HashMap<String, String> hashMap) {
 
-        RealmConfiguration config2 = new RealmConfiguration.Builder()
-                .name("default2")
-                .schemaVersion(3)
-                .deleteRealmIfMigrationNeeded()
-                .build();
+        List<TranslateRealm> list = Realm.getDefaultInstance().where(TranslateRealm.class).findAll();
+        for (TranslateRealm translateRealm : list) {
+            Log.d("INFO", translateRealm.getText() + " - " + translateRealm.getLang() + " - " + translateRealm.getTranslate());
+        }
 
-        TranslateRealm cachedWords = Realm.getInstance(config2)
+        TranslateRealm cachedWords = Realm.getDefaultInstance()
                 .where(TranslateRealm.class)
-                .equalTo("text", hashMap.get("text"))
                 .equalTo("lang", hashMap.get("lang"))
+                .equalTo("text", hashMap.get("text"))
                 .findFirst();
 
         if (cachedWords != null) {

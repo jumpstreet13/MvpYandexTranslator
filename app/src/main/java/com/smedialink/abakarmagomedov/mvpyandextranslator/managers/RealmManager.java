@@ -17,13 +17,7 @@ public class RealmManager {
 
     public static void writeToRealm(final TranslateRealm translateRealm){
 
-        RealmConfiguration config2 = new RealmConfiguration.Builder()
-                .name("default2")
-                .schemaVersion(3)
-                .deleteRealmIfMigrationNeeded()
-                .build();
-
-        Realm.getInstance(config2).
+        Realm.getDefaultInstance().
                 executeTransaction(realm -> realm.copyToRealmOrUpdate(translateRealm));
     }
 
