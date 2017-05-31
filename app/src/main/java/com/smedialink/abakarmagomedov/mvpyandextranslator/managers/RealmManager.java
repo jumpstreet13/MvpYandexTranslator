@@ -5,6 +5,7 @@ import android.util.Log;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.TranslateRealm;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 
 /**
@@ -15,7 +16,14 @@ public class RealmManager {
 
 
     public static void writeToRealm(final TranslateRealm translateRealm){
-        Realm.getDefaultInstance().
+
+        RealmConfiguration config2 = new RealmConfiguration.Builder()
+                .name("default2")
+                .schemaVersion(3)
+                .deleteRealmIfMigrationNeeded()
+                .build();
+
+        Realm.getInstance(config2).
                 executeTransaction(realm -> realm.copyToRealmOrUpdate(translateRealm));
     }
 

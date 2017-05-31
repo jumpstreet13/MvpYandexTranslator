@@ -4,6 +4,7 @@ package com.smedialink.abakarmagomedov.mvpyandextranslator.presentation;
 import android.support.annotation.NonNull;
 
 
+import com.fernandocejas.frodo.annotation.RxLogObservable;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.BasePresenterImp;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 
@@ -30,15 +31,13 @@ public class PresenterImp extends BasePresenterImp<View, Interactor> implements 
 
     @Override
     public void getData(HashMap<String, String> hashMap) {
-        mSubscription = (getInteractor().getWord(hashMap))
+        mSubscription = getInteractor()
+                .getWord(hashMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(disposable -> getView().showProgress())
                 .doOnNext(translate -> getView().fetchData(translate.getTranslate(), translate.getText()))
-                .any(translate -> translate != null).subscribe(aBoolean -> {
-                    if(!aBoolean) getView().error("No internet connection");
-                    getView().hideProgress();
-                });
+                .subscribe(translate -> getView().hideProgress());
     }
 
 

@@ -1,6 +1,7 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.presentation;
 
 
+import com.fernandocejas.frodo.annotation.RxLogObservable;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.Mapper;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.TranslateRealm;
@@ -26,7 +27,6 @@ public class InteractorImp implements Interactor {
         this.repository = repository;
         this.mapper = mapper;
     }
-
 
     @Override
     public Observable<Translate> getWord(HashMap<String, String> hashMap) {

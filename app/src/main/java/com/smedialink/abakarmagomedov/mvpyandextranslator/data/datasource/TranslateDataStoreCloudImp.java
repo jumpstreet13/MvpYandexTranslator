@@ -2,6 +2,7 @@ package com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource;
 
 import android.support.annotation.NonNull;
 
+import com.fernandocejas.frodo.annotation.RxLogObservable;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.Mapper;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.net.YandexApi;
@@ -11,6 +12,7 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.managers.RealmManager;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -29,6 +31,7 @@ public class TranslateDataStoreCloudImp implements TranslateDataStore<Translate>
         this.api = api;
     }
 
+
     @Override
     public Observable<Translate> wordsList(HashMap<String, String> hashMap) {
         return api.getTranslate(hashMap).observeOn(Schedulers.io())
@@ -37,9 +40,10 @@ public class TranslateDataStoreCloudImp implements TranslateDataStore<Translate>
                     return mapper.mapTo(translate);
                 })
                 .doOnNext(RealmManager::writeToRealm)
-                .map(mapper::mapFrom).onErrorResumeNext(throwable -> {
-            return Observable.empty();
-        });
+                .map(mapper::mapFrom)
+                .onErrorResumeNext(throwable -> {
+                    return Observable.empty();
+                });
 
     }
 }

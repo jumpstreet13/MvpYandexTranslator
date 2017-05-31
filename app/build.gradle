@@ -18,9 +18,10 @@ repositories {
 
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.fernandocejas.frodo'
 apply plugin: 'realm-android'
 apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'com.fernandocejas.frodo'
+
 
 
 frodo{
@@ -33,6 +34,7 @@ frodo{
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
+    defaultPublishConfig "debug"
     defaultConfig {
         applicationId "com.smedialink.abakarmagomedov.mvpyandextranslator"
         minSdkVersion 16

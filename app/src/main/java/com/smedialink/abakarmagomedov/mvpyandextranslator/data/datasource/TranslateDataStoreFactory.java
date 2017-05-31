@@ -25,6 +25,6 @@ public class TranslateDataStoreFactory implements BaseDataStoreFactory<Translate
 
     @Override
     public TranslateDataStore<Translate> create() {
-        return defaultStore;
+        return cloudStore;
     }
 }
