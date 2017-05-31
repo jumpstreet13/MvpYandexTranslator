@@ -61,8 +61,8 @@
         android:layout_width="@dimen/size_of_fab"
         android:layout_height="@dimen/size_of_fab"
         android:src="@drawable/ic_camera_alt_black_24dp"
-        app:layout_anchor="@+id/line"
-        app:layout_anchorGravity="center|right"
+        app:layout_anchor="@+id/translate_button"
+        app:layout_anchorGravity="top|left"
         app:useCompatPadding="true"/>
 
 
@@ -72,8 +72,8 @@
         android:layout_height="@dimen/size_of_fab"
         android:layout_margin="@dimen/fab_margins"
         android:src="@drawable/ic_language_black_24dp"
-        app:layout_anchor="@+id/fbi_photo"
-        app:layout_anchorGravity="bottom|center"
+        app:layout_anchor="@+id/translate_button"
+        app:layout_anchorGravity="top|right"
         app:useCompatPadding="true"/>
 
     <android.support.v7.widget.AppCompatButton
@@ -83,8 +83,8 @@
         android:layout_height="wrap_content"
         android:text="@string/translate_it"
         android:textSize="@dimen/middle_text_size"
-        app:layout_anchor="@+id/root_anchor"
-        app:layout_anchorGravity="bottom|center"/>
+        app:layout_anchor="@+id/bottomSheet"
+        app:layout_anchorGravity="top|center"/>
 
 
     <LinearLayout
@@ -100,8 +100,9 @@
 
         <com.smedialink.abakarmagomedov.mvpyandextranslator.custom_views.StringPicker
             android:id="@+id/language_picker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
         </com.smedialink.abakarmagomedov.mvpyandextranslator.custom_views.StringPicker>
 

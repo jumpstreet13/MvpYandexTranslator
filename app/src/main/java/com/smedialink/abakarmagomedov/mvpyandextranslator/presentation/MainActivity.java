@@ -58,6 +58,7 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
     private Validator validator;
     private String[] values = new String[]{"en", "ru", "es", "fr"};
     private BottomSheetBehavior mBottomSheetBehavior;
+  
 
 
     @OnClick(R.id.fbi_photo)
