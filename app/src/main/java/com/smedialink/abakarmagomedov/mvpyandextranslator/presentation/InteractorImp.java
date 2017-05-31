@@ -6,6 +6,7 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.Mapper;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.TranslateRealm;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository.WordsRepository;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository.WordsRepositoryImp;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +31,6 @@ public class InteractorImp implements Interactor {
 
     @Override
     public Observable<Translate> getWord(HashMap<String, String> hashMap) {
-        return repository.query(hashMap);
+        return repository.query(hashMap, WordsRepositoryImp.StoreType.DB).mergeWith(repository.query(hashMap, WordsRepositoryImp.StoreType.CLOUD));
     }
 }

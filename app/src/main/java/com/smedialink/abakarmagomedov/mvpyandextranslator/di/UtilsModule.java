@@ -10,7 +10,7 @@ import com.google.android.gms.vision.text.TextRecognizer;
 import com.google.gson.Gson;
 import com.mobsandgeeks.saripaar.Validator;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.R;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.BaseDataStoreFactory;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.BaseDataStoreCreator;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.TranslateDataStore;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.TranslateDataStoreCloudImp;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.TranslateDataStoreFactory;
@@ -56,7 +56,7 @@ public class UtilsModule {
     @NonNull
     @Provides
     @CloudStore
-    TranslateDataStore<Translate> provideCloudStore(Mapper<TranslateRealm, Translate> mapper, YandexApi yandexApi) {
+    TranslateDataStore provideCloudStore(Mapper<TranslateRealm, Translate> mapper, YandexApi yandexApi) {
         return new TranslateDataStoreCloudImp(mapper, yandexApi);
     }
 
@@ -64,14 +64,14 @@ public class UtilsModule {
     @NonNull
     @Provides
     @DefaultStore
-    TranslateDataStore<Translate> provideBaseStore(Mapper<TranslateRealm, Translate> mapper) {
+    TranslateDataStore provideBaseStore(Mapper<TranslateRealm, Translate> mapper) {
         return new TranslateDataStoreImp(mapper);
     }
 
     @Singleton
     @NonNull
     @Provides
-    WordsRepository provideWordsRepository(BaseDataStoreFactory<TranslateDataStore<Translate>> factory){
+    WordsRepository provideWordsRepository(BaseDataStoreCreator<TranslateDataStore> factory){
         return  new WordsRepositoryImp(factory);
     }
 
@@ -115,7 +115,7 @@ public class UtilsModule {
     @Singleton
     @NonNull
     @Provides
-    BaseDataStoreFactory<TranslateDataStore<Translate>> provideTranslateDataStrore(@CloudStore TranslateDataStore<Translate> cloud, @DefaultStore TranslateDataStore<Translate> base){
+    BaseDataStoreCreator<TranslateDataStore> provideTranslateDataStrore(@CloudStore TranslateDataStore cloud, @DefaultStore TranslateDataStore base){
         return new TranslateDataStoreFactory(base, cloud);
     }
 

@@ -14,8 +14,17 @@ public class TranslateRealm extends RealmObject {
 
     @PrimaryKey
     private String text;
-    private String translate = null;
+    private String translate;
+    private String lang;
 
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
+    }
 
     public String getTranslate() {
         return translate;

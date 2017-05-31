@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by abakarmagomedov on 12/05/17.
  */
 
-public class TranslateDataStoreCloudImp implements TranslateDataStore<Translate> {
+public class TranslateDataStoreCloudImp implements TranslateDataStore {
 
 
     private final YandexApi api;
@@ -46,4 +46,5 @@ public class TranslateDataStoreCloudImp implements TranslateDataStore<Translate>
                 });
 
     }
+
 }

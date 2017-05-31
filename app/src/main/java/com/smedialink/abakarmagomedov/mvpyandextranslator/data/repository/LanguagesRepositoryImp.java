@@ -1,9 +1,6 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository;
 
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.BaseDataStoreFactory;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.TranslateDataStore;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Language;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 
 import io.reactivex.Observable;
 
@@ -14,9 +11,9 @@ import io.reactivex.Observable;
 public class LanguagesRepositoryImp implements LanguagesRepository {
 
 
-    /*private BaseDataStoreFactory<LanguagesDataStore<Language>> factory;
+    /*private BaseDataStoreCreator<LanguagesDataStore<Language>> factory;
 
-    public LanguagesRepositoryImp(BaseDataStoreFactory<LanguagesDataStore<Language>> factory) {
+    public LanguagesRepositoryImp(BaseDataStoreCreator<LanguagesDataStore<Language>> factory) {
         this.factory = factory;
     }*/
 

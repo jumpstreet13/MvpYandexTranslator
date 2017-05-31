@@ -1,5 +1,7 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource;
 
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +14,7 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
  * Created by abakarmagomedov on 12/05/17.
  */
 
-public interface TranslateDataStore<T> {
+public interface TranslateDataStore {
 
-    Observable<T> wordsList(HashMap<String, String> map);
+    Observable<Translate> wordsList(HashMap<String, String> map);
 }

@@ -13,5 +13,5 @@ import io.reactivex.Observable;
  */
 
 public interface WordsRepository{
-    Observable<Translate> query (HashMap<String, String> hashMap);
+    Observable<Translate> query (HashMap<String, String> hashMap,  WordsRepositoryImp.StoreType type);
 }

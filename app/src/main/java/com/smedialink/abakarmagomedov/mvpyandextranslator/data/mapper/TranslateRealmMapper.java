@@ -24,6 +24,7 @@ public class TranslateRealmMapper implements Mapper<TranslateRealm, Translate> {
         TranslateRealm translateRealm = new TranslateRealm();
         translateRealm.setText(translate.getText());
         translateRealm.setTranslate(mGson.toJson(translate.getTranslate()));
+        translateRealm.setLang(translate.getLang().split("-")[1]);
         return translateRealm;
     }
 

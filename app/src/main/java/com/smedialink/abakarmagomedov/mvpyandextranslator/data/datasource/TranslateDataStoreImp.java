@@ -18,7 +18,7 @@ import io.realm.exceptions.RealmMigrationNeededException;
  * Created by abakarmagomedov on 12/05/17.
  */
 
-public class TranslateDataStoreImp implements TranslateDataStore<Translate> {
+public class TranslateDataStoreImp implements TranslateDataStore {
 
     protected final Mapper<TranslateRealm, Translate> mapper;
 
@@ -31,7 +31,6 @@ public class TranslateDataStoreImp implements TranslateDataStore<Translate> {
         return fetchCached(hashMap);
     }
 
-
     private Observable<Translate> fetchCached(HashMap<String, String> hashMap) {
 
         RealmConfiguration config2 = new RealmConfiguration.Builder()
@@ -43,6 +42,7 @@ public class TranslateDataStoreImp implements TranslateDataStore<Translate> {
         TranslateRealm cachedWords = Realm.getInstance(config2)
                 .where(TranslateRealm.class)
                 .equalTo("text", hashMap.get("text"))
+                .equalTo("lang", hashMap.get("lang"))
                 .findFirst();
 
         if (cachedWords != null) {
