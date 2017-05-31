@@ -27,18 +27,9 @@ public class InteractorImp implements Interactor {
         this.mapper = mapper;
     }
 
-    @Override
-    public Observable<Translate> getWordFromBase(HashMap<String,String> hashMap) {
-        return makeObservable(WordsRepository.STORE.LOCAL, hashMap);
-    }
 
     @Override
-    public Observable<Translate> getWordFromCloud(HashMap<String,String> hashMap) {
-        return makeObservable(WordsRepository.STORE.CLOUD, hashMap);
-    }
-
-    private Observable<Translate> makeObservable (WordsRepository.STORE store, HashMap<String, String> hashMap){
-        return repository.configKindStore(store)
-                .query(hashMap);
+    public Observable<Translate> getWord(HashMap<String, String> hashMap) {
+        return repository.query(hashMap);
     }
 }

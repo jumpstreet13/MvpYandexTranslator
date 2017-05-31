@@ -2,40 +2,44 @@ package com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource;
 
 import android.support.annotation.NonNull;
 
-import com.smedialink.abakarmagomedov.mvpyandextranslator.ComponentsHolder;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.Mapper;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.net.YandexApi;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.TranslateRealm;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.managers.RealmManager;
 
 import java.util.HashMap;
-import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by abakarmagomedov on 12/05/17.
  */
 
-public abstract class BaseDataStore {
+public class TranslateDataStoreCloudImp implements TranslateDataStore<Translate> {
 
+
+    private final YandexApi api;
     protected final Mapper<TranslateRealm, Translate> mapper;
 
-    public BaseDataStore(@NonNull Mapper<TranslateRealm, Translate> mapper) {
+
+    public TranslateDataStoreCloudImp(@NonNull Mapper<TranslateRealm, Translate> mapper, YandexApi api) {
         this.mapper = mapper;
+        this.api = api;
     }
 
-    Observable<Translate> fetchResults(Observable<Translate> observable, HashMap<String, String> hashMap){
-        return observable.observeOn(Schedulers.io())
+    @Override
+    public Observable<Translate> wordsList(HashMap<String, String> hashMap) {
+        return api.getTranslate(hashMap).observeOn(Schedulers.io())
                 .map(translate -> {
                     translate.setText(hashMap.get("text"));
                     return mapper.mapTo(translate);
                 })
                 .doOnNext(RealmManager::writeToRealm)
-                .map(mapper::mapFrom);
+                .map(mapper::mapFrom).onErrorResumeNext(throwable -> {
+            return Observable.empty();
+        });
+
     }
 }

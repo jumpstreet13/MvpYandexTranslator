@@ -30,7 +30,7 @@ public class PresenterImp extends BasePresenterImp<View, Interactor> implements 
 
     @Override
     public void getData(HashMap<String, String> hashMap) {
-        mSubscription = Observable.merge(getInteractor().getWordFromBase(hashMap), getInteractor().getWordFromCloud(hashMap))
+        mSubscription = (getInteractor().getWord(hashMap))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(disposable -> getView().showProgress())

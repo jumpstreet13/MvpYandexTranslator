@@ -4,14 +4,14 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Language;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 
 import java.util.HashMap;
-import java.util.List;
 
 import io.reactivex.Observable;
 
 /**
- * Created by abakarmagomedov on 12/05/17.
+ * Created by abakarmagomedov on 31/05/17.
  */
 
-public interface WordsRepository{
-    Observable<Translate> query (HashMap<String, String> hashMap);
+public interface LanguagesRepository {
+
+    Observable<Language> getLanguages();
 }

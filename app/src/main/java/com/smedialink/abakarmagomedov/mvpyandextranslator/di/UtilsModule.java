@@ -1,8 +1,6 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.di;
 
 import android.content.Context;
-import android.hardware.Camera;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -12,9 +10,11 @@ import com.google.android.gms.vision.text.TextRecognizer;
 import com.google.gson.Gson;
 import com.mobsandgeeks.saripaar.Validator;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.R;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.DataStore;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.DataStoreCloudImp;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.DataStoreImp;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.BaseDataStoreFactory;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.TranslateDataStore;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.TranslateDataStoreCloudImp;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.TranslateDataStoreFactory;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.TranslateDataStoreImp;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.Mapper;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.TranslateRealmMapper;
@@ -26,7 +26,6 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.managers.GsonManager;
 
 import javax.inject.Singleton;
 
-import dagger.Component;
 import dagger.Module;
 import dagger.Provides;
 
@@ -57,24 +56,23 @@ public class UtilsModule {
     @NonNull
     @Provides
     @CloudStore
-    DataStore<Translate> provideCloudStore(Mapper<TranslateRealm, Translate> mapper, YandexApi yandexApi) {
-        return new DataStoreCloudImp(mapper, yandexApi);
+    TranslateDataStore<Translate> provideCloudStore(Mapper<TranslateRealm, Translate> mapper, YandexApi yandexApi) {
+        return new TranslateDataStoreCloudImp(mapper, yandexApi);
     }
 
     @Singleton
     @NonNull
     @Provides
     @DefaultStore
-    DataStore<Translate> provideBaseStore(Mapper<TranslateRealm, Translate> mapper) {
-        return new DataStoreImp(mapper);
+    TranslateDataStore<Translate> provideBaseStore(Mapper<TranslateRealm, Translate> mapper) {
+        return new TranslateDataStoreImp(mapper);
     }
-
 
     @Singleton
     @NonNull
     @Provides
-    WordsRepository provideWordsRepository(@CloudStore DataStore<Translate> cloud, @DefaultStore DataStore<Translate> base) {
-        return new WordsRepositoryImp(cloud, base);
+    WordsRepository provideWordsRepository(BaseDataStoreFactory<TranslateDataStore<Translate>> factory){
+        return  new WordsRepositoryImp(factory);
     }
 
 
@@ -114,5 +112,11 @@ public class UtilsModule {
         return  new Validator(context);
     }
 
+    @Singleton
+    @NonNull
+    @Provides
+    BaseDataStoreFactory<TranslateDataStore<Translate>> provideTranslateDataStrore(@CloudStore TranslateDataStore<Translate> cloud, @DefaultStore TranslateDataStore<Translate> base){
+        return new TranslateDataStoreFactory(base, cloud);
+    }
 
 }

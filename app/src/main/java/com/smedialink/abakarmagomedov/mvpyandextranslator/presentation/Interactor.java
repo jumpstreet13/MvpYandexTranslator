@@ -13,6 +13,5 @@ import io.reactivex.Observable;
 
 public interface Interactor extends BaseInteractor {
 
-    Observable<Translate> getWordFromBase(HashMap<String,String> hashMap);
-    Observable<Translate> getWordFromCloud(HashMap<String,String> hashMap);
+    Observable<Translate> getWord(HashMap<String,String> hashMap);
 }

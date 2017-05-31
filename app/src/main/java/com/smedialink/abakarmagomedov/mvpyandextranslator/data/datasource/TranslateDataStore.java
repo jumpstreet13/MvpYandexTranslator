@@ -12,7 +12,7 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
  * Created by abakarmagomedov on 12/05/17.
  */
 
-public interface DataStore<T> {
+public interface TranslateDataStore<T> {
 
     Observable<T> wordsList(HashMap<String, String> map);
 }
