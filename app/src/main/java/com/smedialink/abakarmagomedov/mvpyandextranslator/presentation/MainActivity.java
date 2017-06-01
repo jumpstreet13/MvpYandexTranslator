@@ -58,6 +58,7 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
     private HashMap<String, String> map;
     private Validator validator;
     private BottomSheetBehavior mBottomSheetBehavior;
+    private List<Language> languages = new ArrayList<>();   // TODO: 01/06/17 Fix that bad style
 
 
 
@@ -112,11 +113,12 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
 
     @Override
     public void fetchLanguages(List<Language> languages) {
-        List<String> list = new ArrayList<>();
-        for (Language language : languages) {
-            list.add(language.getDescription());
+        this.languages = languages;
+        List<String> descriptions = new ArrayList<>();
+        for (Language lang : languages) {
+            descriptions.add(lang.getDescription());
         }
-        picker.setValues(list);
+        picker.setValues(descriptions);
     }
 
 
@@ -179,7 +181,7 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
     @Override
     public void onValidationSucceeded() {
         map.put("text", englishText.getText().toString());
-        map.put("lang", picker.getCurrentValue());
+        map.put("lang", languages.get(picker.getCurrent()).getName() );
         mPresenter.getData(map);
     }
 
