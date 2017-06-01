@@ -16,9 +16,10 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.Langua
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.LanguageDataStroreCloud;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.LanguageDataStroreCreator;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.TranslateDataStore;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.TranslateDataStoreBase;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.TranslateDataStoreCloud;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.TranslateDataStoreCreator;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.TranslateDataStoreBase;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Langs;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Language;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.LangsMapper;
@@ -26,7 +27,6 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.LanguageRe
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.Mapper;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.TranslateRealmMapper;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.net.YandexApi;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Langs;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.LanguageRealm;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.TranslateRealm;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository.LanguagesRepository;

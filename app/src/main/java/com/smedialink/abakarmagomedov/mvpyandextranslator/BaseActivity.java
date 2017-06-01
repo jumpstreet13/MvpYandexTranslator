@@ -4,13 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.mobsandgeeks.saripaar.ValidationError;
-import com.mobsandgeeks.saripaar.Validator;
-
-import java.util.List;
-
-import javax.inject.Inject;
-
 
 /**
  * Created by abakarmagomedov on 21/05/17.

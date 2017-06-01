@@ -2,7 +2,6 @@ package com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource;
 
 import android.support.annotation.NonNull;
 
-import com.fernandocejas.frodo.annotation.RxLogObservable;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.Mapper;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.net.YandexApi;
@@ -12,7 +11,6 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.managers.RealmManager;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**

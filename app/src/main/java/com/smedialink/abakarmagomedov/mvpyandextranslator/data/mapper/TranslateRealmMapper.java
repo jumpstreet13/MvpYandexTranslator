@@ -1,11 +1,8 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper;
 
-import com.google.gson.Gson;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.TranslateRealm;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.managers.GsonManager;
-
-import javax.inject.Inject;
 
 /**
  * Created by abakarmagomedov on 12/05/17.

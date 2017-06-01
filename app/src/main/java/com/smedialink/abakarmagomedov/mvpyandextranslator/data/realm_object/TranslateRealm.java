@@ -1,9 +1,6 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object;
 
 
-import java.util.List;
-
-import dagger.Provides;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 

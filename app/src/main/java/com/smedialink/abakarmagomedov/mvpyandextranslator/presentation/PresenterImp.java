@@ -3,7 +3,6 @@ package com.smedialink.abakarmagomedov.mvpyandextranslator.presentation;
 
 import android.support.annotation.NonNull;
 
-
 import com.smedialink.abakarmagomedov.mvpyandextranslator.BasePresenterImp;
 
 import java.util.HashMap;

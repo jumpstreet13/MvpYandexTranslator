@@ -3,10 +3,10 @@ package com.smedialink.abakarmagomedov.mvpyandextranslator.presentation;
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
-import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.animation.Animation;
 import android.widget.EditText;
@@ -59,8 +59,6 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
     private Validator validator;
     private BottomSheetBehavior mBottomSheetBehavior;
     private List<Language> languages = new ArrayList<>();   // TODO: 01/06/17 Fix that bad style
-
-
 
     @OnClick(R.id.fbi_photo)
     void onFbiClick() {
@@ -181,7 +179,7 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
     @Override
     public void onValidationSucceeded() {
         map.put("text", englishText.getText().toString());
-        map.put("lang", languages.get(picker.getCurrent()).getName() );
+        map.put("lang", languages.get(picker.getCurrent()).getName());
         mPresenter.getData(map);
     }
 

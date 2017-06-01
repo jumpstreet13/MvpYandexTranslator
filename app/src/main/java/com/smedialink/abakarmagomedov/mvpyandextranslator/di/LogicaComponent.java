@@ -4,7 +4,6 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.di.base.LogicComponent
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.base.LogicComponentBuilder;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.MainActivity;
 
-import dagger.Component;
 import dagger.Subcomponent;
 
 /**

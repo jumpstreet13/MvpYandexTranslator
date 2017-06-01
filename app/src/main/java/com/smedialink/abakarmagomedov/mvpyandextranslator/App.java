@@ -3,15 +3,9 @@ package com.smedialink.abakarmagomedov.mvpyandextranslator;
 import android.app.Application;
 import android.content.Context;
 
-import com.facebook.stetho.InspectorModulesProvider;
 import com.facebook.stetho.Stetho;
-import com.facebook.stetho.inspector.protocol.ChromeDevtoolsDomain;
-import com.facebook.stetho.inspector.protocol.module.Inspector;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.di.AppComponent;
 
 import io.realm.Realm;
-import io.realm.annotations.RealmModule;
-import io.realm.internal.RealmProxyMediator;
 
 /**
  * Created by abakarmagomedov on 14/05/17.

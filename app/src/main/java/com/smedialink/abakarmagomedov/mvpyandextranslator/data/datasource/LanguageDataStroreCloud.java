@@ -1,9 +1,9 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource;
 
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Langs;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Language;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.Mapper;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.net.YandexApi;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Langs;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.LanguageRealm;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.managers.RealmManager;
 

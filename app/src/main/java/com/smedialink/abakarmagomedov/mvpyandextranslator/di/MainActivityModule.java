@@ -26,9 +26,8 @@ public class MainActivityModule implements LogicModule {
 
     @LogicScope
     @Provides
-    Interactor provideInteractor(WordsRepository wordsRepository, LanguagesRepository languagesRepository,
-                                 Mapper<TranslateRealm, Translate> mapper){
-        return new InteractorImp(wordsRepository, languagesRepository, mapper);
+    Interactor provideInteractor(WordsRepository wordsRepository, LanguagesRepository languagesRepository){
+        return new InteractorImp(wordsRepository, languagesRepository);
     }
 
     @LogicScope

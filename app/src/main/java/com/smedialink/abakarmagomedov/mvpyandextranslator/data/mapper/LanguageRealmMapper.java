@@ -1,7 +1,6 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper;
 
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Language;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Langs;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.LanguageRealm;
 
 /**

@@ -1,12 +1,9 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.data.net;
 
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Langs;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Language;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.YandexResponse;
 
 import java.util.HashMap;
-import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;

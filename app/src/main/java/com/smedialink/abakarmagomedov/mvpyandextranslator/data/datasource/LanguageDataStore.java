@@ -1,7 +1,6 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource;
 
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Language;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.LanguageRealm;
 
 import java.util.List;
 

@@ -1,7 +1,5 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator;
 
-import io.reactivex.disposables.Disposable;
-
 /**
  * Created by abakarmagomedov on 17/05/17.
  */

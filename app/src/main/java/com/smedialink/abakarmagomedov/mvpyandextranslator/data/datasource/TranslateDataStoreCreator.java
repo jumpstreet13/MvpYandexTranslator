@@ -2,8 +2,6 @@ package com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource;
 
 import android.support.annotation.NonNull;
 
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository.WordsRepositoryImp;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.CloudStore;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.DefaultStore;
 

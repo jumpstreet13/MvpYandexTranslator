@@ -1,6 +1,5 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.di;
 
-import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 

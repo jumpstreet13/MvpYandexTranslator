@@ -2,8 +2,6 @@ package com.smedialink.abakarmagomedov.mvpyandextranslator;
 
 import android.support.annotation.NonNull;
 
-import org.reactivestreams.Subscription;
-
 import io.reactivex.disposables.Disposable;
 
 /**
