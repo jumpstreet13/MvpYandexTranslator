@@ -19,14 +19,14 @@ import io.reactivex.schedulers.Schedulers;
  * Created by abakarmagomedov on 12/05/17.
  */
 
-public class TranslateDataStoreCloudImp implements TranslateDataStore {
+public class TranslateDataStoreCloud implements TranslateDataStore {
 
 
     private final YandexApi api;
     protected final Mapper<TranslateRealm, Translate> mapper;
 
 
-    public TranslateDataStoreCloudImp(@NonNull Mapper<TranslateRealm, Translate> mapper, YandexApi api) {
+    public TranslateDataStoreCloud(@NonNull Mapper<TranslateRealm, Translate> mapper, YandexApi api) {
         this.mapper = mapper;
         this.api = api;
     }
@@ -39,7 +39,7 @@ public class TranslateDataStoreCloudImp implements TranslateDataStore {
                     translate.setText(hashMap.get("text"));
                     return mapper.mapTo(translate);
                 })
-                .doOnNext(RealmManager::writeToRealm)
+                .doOnNext(RealmManager::writeToRealm)       // TODO: 01/06/17 Throw this logic to repository
                 .map(mapper::mapFrom)
                 .onErrorResumeNext(throwable -> {
                     return Observable.empty();

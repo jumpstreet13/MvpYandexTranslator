@@ -6,6 +6,7 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.Tran
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmObject;
 
 
 /**
@@ -14,11 +15,8 @@ import io.realm.RealmConfiguration;
 
 public class RealmManager {
 
-
-    public static void writeToRealm(final TranslateRealm translateRealm){
-
+    public static <T extends RealmObject> void writeToRealm(final T translateRealm){
         Realm.getDefaultInstance().
                 executeTransaction(realm -> realm.copyToRealmOrUpdate(translateRealm));
     }
-
 }

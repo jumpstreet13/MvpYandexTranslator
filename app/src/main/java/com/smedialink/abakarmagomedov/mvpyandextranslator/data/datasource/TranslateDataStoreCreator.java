@@ -11,20 +11,20 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.di.DefaultStore;
  * Created by abakarmagomedov on 31/05/17.
  */
 
-public class TranslateDataStoreFactory implements BaseDataStoreCreator<TranslateDataStore> {
+public class TranslateDataStoreCreator implements BaseDataStoreCreator<TranslateDataStore> {
 
-    private TranslateDataStore output;
     private TranslateDataStore defaultStore;
     private TranslateDataStore cloudStore;
 
-    public TranslateDataStoreFactory(@DefaultStore @NonNull TranslateDataStore defaultStore,
+    public TranslateDataStoreCreator(@DefaultStore @NonNull TranslateDataStore defaultStore,
                                      @CloudStore @NonNull TranslateDataStore cloudStore) {
         this.defaultStore = defaultStore;
         this.cloudStore = cloudStore;
     }
 
     @Override
-    public TranslateDataStore create(WordsRepositoryImp.StoreType type) {
+    public TranslateDataStore create(StoreType type) {
+        TranslateDataStore output;
         switch (type) {
             case CLOUD:
                 output = cloudStore;

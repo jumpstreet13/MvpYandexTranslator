@@ -22,11 +22,11 @@ import io.realm.exceptions.RealmMigrationNeededException;
  * Created by abakarmagomedov on 12/05/17.
  */
 
-public class TranslateDataStoreImp implements TranslateDataStore {
+public class TranslateDataStoreBase implements TranslateDataStore {
 
     protected final Mapper<TranslateRealm, Translate> mapper;
 
-    public TranslateDataStoreImp(@NonNull Mapper<TranslateRealm, Translate> mapper) {
+    public TranslateDataStoreBase(@NonNull Mapper<TranslateRealm, Translate> mapper) {
        this.mapper = mapper;
     }
 
@@ -36,11 +36,6 @@ public class TranslateDataStoreImp implements TranslateDataStore {
     }
 
     private Observable<Translate> fetchCached(HashMap<String, String> hashMap) {
-
-        List<TranslateRealm> list = Realm.getDefaultInstance().where(TranslateRealm.class).findAll();
-        for (TranslateRealm translateRealm : list) {
-            Log.d("INFO", translateRealm.getText() + " - " + translateRealm.getLang() + " - " + translateRealm.getTranslate());
-        }
 
         TranslateRealm cachedWords = Realm.getDefaultInstance()
                 .where(TranslateRealm.class)

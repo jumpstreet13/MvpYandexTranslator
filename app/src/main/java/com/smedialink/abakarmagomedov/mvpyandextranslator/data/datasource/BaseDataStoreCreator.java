@@ -8,6 +8,6 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository.WordsR
 
 public interface BaseDataStoreCreator<STORE> {
 
-    STORE create(WordsRepositoryImp.StoreType type);
+    STORE create(StoreType type);
 
 }

@@ -1,5 +1,6 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository;
 
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.StoreType;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Language;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 
@@ -13,5 +14,5 @@ import io.reactivex.Observable;
  */
 
 public interface WordsRepository{
-    Observable<Translate> query (HashMap<String, String> hashMap,  WordsRepositoryImp.StoreType type);
+    Observable<Translate> query (HashMap<String, String> hashMap,  StoreType type);
 }

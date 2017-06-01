@@ -3,6 +3,7 @@ package com.smedialink.abakarmagomedov.mvpyandextranslator.di;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.Mapper;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.TranslateRealm;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository.LanguagesRepository;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository.WordsRepository;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.base.LogicModule;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.Interactor;
@@ -25,8 +26,9 @@ public class MainActivityModule implements LogicModule {
 
     @LogicScope
     @Provides
-    Interactor provideInteractor(WordsRepository repository, Mapper<TranslateRealm, Translate> mapper){
-        return new InteractorImp(repository, mapper);
+    Interactor provideInteractor(WordsRepository wordsRepository, LanguagesRepository languagesRepository,
+                                 Mapper<TranslateRealm, Translate> mapper){
+        return new InteractorImp(wordsRepository, languagesRepository, mapper);
     }
 
     @LogicScope

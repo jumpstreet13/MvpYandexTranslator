@@ -4,17 +4,12 @@ package com.smedialink.abakarmagomedov.mvpyandextranslator.presentation;
 import android.support.annotation.NonNull;
 
 
-import com.fernandocejas.frodo.annotation.RxLogObservable;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.BasePresenterImp;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 
 import java.util.HashMap;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -23,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class PresenterImp extends BasePresenterImp<View, Interactor> implements Presenter {
 
-    private Disposable mSubscription;
+    private Disposable subscriptionTranslate, subscriptionLanguage;
 
     public PresenterImp(@NonNull Interactor interactor) {
         super(interactor);
@@ -31,7 +26,7 @@ public class PresenterImp extends BasePresenterImp<View, Interactor> implements 
 
     @Override
     public void getData(HashMap<String, String> hashMap) {
-        mSubscription = getInteractor()
+        subscriptionTranslate = getInteractor()
                 .getWord(hashMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -40,9 +35,18 @@ public class PresenterImp extends BasePresenterImp<View, Interactor> implements 
                 .subscribe(translate -> getView().hideProgress());
     }
 
+    @Override
+    public void getLanguageList() {
+        subscriptionLanguage = getInteractor()
+                .getLanguages()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(languages -> getView().fetchLanguages(languages));
+    }
+
 
     @Override
     public Disposable hasSubscription() {
-        return mSubscription;
+        return subscriptionTranslate;
     }
 }

@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Language;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.List;

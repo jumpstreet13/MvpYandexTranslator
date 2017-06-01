@@ -1,6 +1,7 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository;
 
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.BaseDataStoreCreator;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.StoreType;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.TranslateDataStore;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 
@@ -25,8 +26,5 @@ public class WordsRepositoryImp implements WordsRepository {
         return factory.create(type).wordsList(hashMap);
     }
 
-    public enum StoreType {
-        CLOUD, DB
-    }
 }
 

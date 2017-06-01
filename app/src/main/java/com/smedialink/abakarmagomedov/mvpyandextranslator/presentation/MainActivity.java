@@ -24,6 +24,7 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.App;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.BaseActivity;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.R;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.custom_views.StringPicker;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Language;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.net.Links;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.MainActivityModule;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.base.LogicComponent;
@@ -56,9 +57,8 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
     @BindView(R.id.bottomSheet) android.view.View bottomSheet;
     private HashMap<String, String> map;
     private Validator validator;
-    private String[] values = new String[]{"en", "ru", "es", "fr"};
     private BottomSheetBehavior mBottomSheetBehavior;
-  
+
 
 
     @OnClick(R.id.fbi_photo)
@@ -68,6 +68,7 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
 
     @OnClick(R.id.fbi_language)
     void onFbiLanguageClick() {
+        mPresenter.getLanguageList();
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
@@ -91,7 +92,6 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
         map = new HashMap<>();
         map.put("key", Links.ACCESS_TOKEN);
         map.put("lang", "ru");
-        picker.setValues(values);
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
     }
 
@@ -109,6 +109,16 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
         }
         englishText.setSelection(englishText.getText().length());
     }
+
+    @Override
+    public void fetchLanguages(List<Language> languages) {
+        List<String> list = new ArrayList<>();
+        for (Language language : languages) {
+            list.add(language.getDescription());
+        }
+        picker.setValues(list);
+    }
+
 
     @Override
     public void error(String error) {

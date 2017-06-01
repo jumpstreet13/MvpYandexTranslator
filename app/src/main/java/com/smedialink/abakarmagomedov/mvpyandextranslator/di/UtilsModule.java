@@ -11,18 +11,31 @@ import com.google.gson.Gson;
 import com.mobsandgeeks.saripaar.Validator;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.R;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.BaseDataStoreCreator;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.LanguageDataStore;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.LanguageDataStoreBase;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.LanguageDataStroreCloud;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.LanguageDataStroreCreator;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.TranslateDataStore;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.TranslateDataStoreCloudImp;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.TranslateDataStoreFactory;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.TranslateDataStoreImp;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.TranslateDataStoreCloud;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.TranslateDataStoreCreator;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.TranslateDataStoreBase;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Language;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.LangsMapper;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.LanguageRealmMapper;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.Mapper;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.TranslateRealmMapper;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.net.YandexApi;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Langs;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.LanguageRealm;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.TranslateRealm;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository.LanguagesRepository;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository.LanguagesRepositoryImp;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository.WordsRepository;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository.WordsRepositoryImp;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.managers.GsonManager;
+
+import java.util.List;
 
 import javax.inject.Singleton;
 
@@ -48,8 +61,22 @@ public class UtilsModule {
     @Singleton
     @NonNull
     @Provides
-    Mapper<TranslateRealm, Translate> provideMapper(GsonManager gsonManager) {
+    Mapper<TranslateRealm, Translate> provideTranslateMapper(GsonManager gsonManager) {
         return new TranslateRealmMapper(gsonManager);
+    }
+
+    @Singleton
+    @NonNull
+    @Provides
+    Mapper<LanguageRealm, Language> provideLanguageMapper() {
+        return new LanguageRealmMapper();
+    }
+
+    @Singleton
+    @NonNull
+    @Provides
+    Mapper<Langs, List<LanguageRealm>> provideLangsMapper() {
+        return new LangsMapper();
     }
 
     @Singleton
@@ -57,7 +84,7 @@ public class UtilsModule {
     @Provides
     @CloudStore
     TranslateDataStore provideCloudStore(Mapper<TranslateRealm, Translate> mapper, YandexApi yandexApi) {
-        return new TranslateDataStoreCloudImp(mapper, yandexApi);
+        return new TranslateDataStoreCloud(mapper, yandexApi);
     }
 
     @Singleton
@@ -65,14 +92,38 @@ public class UtilsModule {
     @Provides
     @DefaultStore
     TranslateDataStore provideBaseStore(Mapper<TranslateRealm, Translate> mapper) {
-        return new TranslateDataStoreImp(mapper);
+        return new TranslateDataStoreBase(mapper);
     }
+
+    @Singleton
+    @NonNull
+    @Provides
+    @CloudStore
+    LanguageDataStore provideLanguageCloudStore(Mapper<Langs, List<LanguageRealm>> mapper,
+                                                YandexApi yandexApi, Mapper<LanguageRealm, Language> langMapper) {
+        return new LanguageDataStroreCloud(yandexApi, mapper, langMapper);
+    }
+
+    @Singleton
+    @NonNull
+    @Provides
+    @DefaultStore
+    LanguageDataStore provideLanguageBaseStore(Mapper<LanguageRealm, Language> mapper) {
+        return new LanguageDataStoreBase(mapper);
+    }
+
 
     @Singleton
     @NonNull
     @Provides
     WordsRepository provideWordsRepository(BaseDataStoreCreator<TranslateDataStore> factory){
         return  new WordsRepositoryImp(factory);
+    }
+
+    @Singleton
+    @NonNull
+    @Provides LanguagesRepository provideLanguagesRepository(BaseDataStoreCreator<LanguageDataStore> factory){
+        return new LanguagesRepositoryImp(factory);
     }
 
 
@@ -115,8 +166,15 @@ public class UtilsModule {
     @Singleton
     @NonNull
     @Provides
-    BaseDataStoreCreator<TranslateDataStore> provideTranslateDataStrore(@CloudStore TranslateDataStore cloud, @DefaultStore TranslateDataStore base){
-        return new TranslateDataStoreFactory(base, cloud);
+    BaseDataStoreCreator<TranslateDataStore> provideTranslateDataStore(@CloudStore TranslateDataStore cloud, @DefaultStore TranslateDataStore base){
+        return new TranslateDataStoreCreator(base, cloud);
+    }
+
+    @Singleton
+    @NonNull
+    @Provides
+    BaseDataStoreCreator<LanguageDataStore> provideLanguageDataStore(@CloudStore LanguageDataStore cloud, @DefaultStore LanguageDataStore base){
+        return new LanguageDataStroreCreator(base, cloud);
     }
 
 }
