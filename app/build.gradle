@@ -79,6 +79,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.5.1'
     compile 'com.facebook.stetho:stetho:1.5.0'
     compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.github.GoodieBag:HorizontalPicker:v1.0'
     testCompile 'junit:junit:4.12'
     compile 'com.mobsandgeeks:android-saripaar:2.0.2'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.9'

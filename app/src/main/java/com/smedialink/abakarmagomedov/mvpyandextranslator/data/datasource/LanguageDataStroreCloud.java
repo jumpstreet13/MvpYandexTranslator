@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.functions.Function;
 
 /**
  * Created by abakarmagomedov on 01/06/17.
@@ -20,7 +22,7 @@ public class LanguageDataStroreCloud implements LanguageDataStore {
 
 
     private final YandexApi api;
-    protected final Mapper<Langs, List<LanguageRealm>> realmMapper;
+    private final Mapper<Langs, List<LanguageRealm>> realmMapper;
     private Mapper<LanguageRealm, Language> langMapper;
 
 
@@ -40,11 +42,13 @@ public class LanguageDataStroreCloud implements LanguageDataStore {
                         RealmManager.writeToRealm(languageRealm);
                     }
                 }).map(languageRealms -> {
-                    List<Language> languages = new ArrayList<Language>();
+                    List<Language> languages = new ArrayList<>();
                     for (LanguageRealm languageRealm : languageRealms) {
                         languages.add(langMapper.mapFrom(languageRealm));
                     }
                     return languages;
+                }).onErrorResumeNext(throwable -> {
+                    return Observable.empty();
                 });
     }
 }

@@ -53,7 +53,7 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
     @BindView(R.id.translate) TextView translate;
     @BindView(R.id.fbi_photo) FloatingActionButton fbi_photo;
     @BindView(R.id.fbi_language) FloatingActionButton fbi_language;
-    @BindView(R.id.language_picker) StringPicker picker;
+    //@BindView(R.id.language_picker) StringPicker picker;
     @BindView(R.id.bottomSheet) android.view.View bottomSheet;
     private HashMap<String, String> map;
     private Validator validator;
@@ -116,7 +116,7 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
         for (Language lang : languages) {
             descriptions.add(lang.getDescription());
         }
-        picker.setValues(descriptions);
+       // picker.setValues(descriptions);
     }
 
 
@@ -162,6 +162,7 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
             List<String> list = new ArrayList<>();
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
+            assert (imageBitmap != null ? imageBitmap : null) != null;
             SparseArray<TextBlock> textBlocks = recognizer.detect(new Frame.Builder().setBitmap(imageBitmap).build());
             for (int i = 0; i < textBlocks.size(); i++) {
                 TextBlock textBlock = textBlocks.get(textBlocks.keyAt(i));
@@ -179,7 +180,7 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
     @Override
     public void onValidationSucceeded() {
         map.put("text", englishText.getText().toString());
-        map.put("lang", languages.get(picker.getCurrent()).getName());
+        //map.put("lang", languages.get(picker.getCurrent()).getName());
         mPresenter.getData(map);
     }
 
