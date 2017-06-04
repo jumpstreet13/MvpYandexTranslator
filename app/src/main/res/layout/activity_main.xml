@@ -98,16 +98,20 @@
         app:behavior_peekHeight="0dp"
         app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
-        <com.goodiebag.horizontalpicker.HorizontalPicker
-            android:id="@+id/hpicker"
+        <HorizontalScrollView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:textSize="18sp"
-            app:itemMargin="5dp"
-            app:itemHeight="40dp"
-            app:itemWidth="40dp"/>
-            <!--app:backgroundSelector="@drawable/selector_background_example"
-            app:textColorSelector="@color/selector_text_view"/>-->
+            android:layout_height="match_parent">
+
+            <com.smedialink.abakarmagomedov.mvpyandextranslator.custom_views.MyHorizontalPicker
+                android:id="@+id/hpicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:textSize="12sp"/>
+                <!--app:backgroundSelector="@drawable/language_selector"-->
+            <!--   app:textColorSelector="@color/selector_text_view"/>-->
+
+        </HorizontalScrollView>
 
     </LinearLayout>
 

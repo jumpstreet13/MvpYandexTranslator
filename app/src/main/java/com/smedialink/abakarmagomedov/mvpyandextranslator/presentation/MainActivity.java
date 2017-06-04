@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.goodiebag.horizontalpicker.HorizontalPicker;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
@@ -23,6 +24,7 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.App;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.BaseActivity;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.R;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.custom_views.MyHorizontalPicker;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.custom_views.StringPicker;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Language;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.net.Links;
@@ -42,7 +44,7 @@ import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public class MainActivity extends BaseActivity implements View, Validator.ValidationListener {
+public class MainActivity extends BaseActivity implements View, Validator.ValidationListener, MyHorizontalPicker.OnSelectionChangeListener {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     @Inject CameraSource camera;
@@ -53,12 +55,11 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
     @BindView(R.id.translate) TextView translate;
     @BindView(R.id.fbi_photo) FloatingActionButton fbi_photo;
     @BindView(R.id.fbi_language) FloatingActionButton fbi_language;
-    //@BindView(R.id.language_picker) StringPicker picker;
+    @BindView(R.id.hpicker) MyHorizontalPicker picker;
     @BindView(R.id.bottomSheet) android.view.View bottomSheet;
     private HashMap<String, String> map;
     private Validator validator;
     private BottomSheetBehavior mBottomSheetBehavior;
-    private List<Language> languages = new ArrayList<>();   // TODO: 01/06/17 Fix that bad style
 
     @OnClick(R.id.fbi_photo)
     void onFbiClick() {
@@ -111,11 +112,12 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
 
     @Override
     public void fetchLanguages(List<Language> languages) {
-        this.languages = languages;
-        List<String> descriptions = new ArrayList<>();
+        List<MyHorizontalPicker.PickerItem> items = new ArrayList<>();
         for (Language lang : languages) {
-            descriptions.add(lang.getDescription());
+            items.add(new MyHorizontalPicker.LanguageItem(lang));
         }
+        picker.setItems(items, 0);
+
        // picker.setValues(descriptions);
     }
 
@@ -180,12 +182,17 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
     @Override
     public void onValidationSucceeded() {
         map.put("text", englishText.getText().toString());
-        //map.put("lang", languages.get(picker.getCurrent()).getName());
         mPresenter.getData(map);
     }
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
         error("Write a word to field");
+    }
+
+    @Override
+    public void onItemSelect(MyHorizontalPicker var1, int var2) {
+        MyHorizontalPicker.PickerItem selected = picker.getSelectedItem();
+        map.put("lang", selected.getItem().getName());
     }
 }
