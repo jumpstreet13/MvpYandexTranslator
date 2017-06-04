@@ -89,7 +89,7 @@
 
     <LinearLayout
         android:id="@+id/bottomSheet"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/bottom_sheet_size"
         android:background="@color/colorPrimary"
         android:gravity="center"
@@ -98,20 +98,13 @@
         app:behavior_peekHeight="0dp"
         app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
-        <HorizontalScrollView
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/language_recycler"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
 
-            <com.smedialink.abakarmagomedov.mvpyandextranslator.custom_views.MyHorizontalPicker
-                android:id="@+id/hpicker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                app:textSize="12sp"/>
-                <!--app:backgroundSelector="@drawable/language_selector"-->
-            <!--   app:textColorSelector="@color/selector_text_view"/>-->
-
-        </HorizontalScrollView>
+        </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
 

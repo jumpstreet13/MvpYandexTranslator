@@ -44,7 +44,9 @@ public class LanguageDataStroreCloud implements LanguageDataStore {
                 }).map(languageRealms -> {
                     List<Language> languages = new ArrayList<>();
                     for (LanguageRealm languageRealm : languageRealms) {
-                        languages.add(langMapper.mapFrom(languageRealm));
+                        Language lang = langMapper.mapFrom(languageRealm);
+                        lang.setDescription(lang.getDescription().replace("\'", ""));
+                        languages.add(lang);
                     }
                     return languages;
                 }).onErrorResumeNext(throwable -> {

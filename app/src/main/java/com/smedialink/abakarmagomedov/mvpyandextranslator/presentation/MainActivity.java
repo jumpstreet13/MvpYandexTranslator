@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.animation.Animation;
 import android.widget.EditText;
@@ -24,6 +26,7 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.App;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.BaseActivity;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.R;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.adapter.LanguageAdapter;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.custom_views.MyHorizontalPicker;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.custom_views.StringPicker;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Language;
@@ -44,7 +47,7 @@ import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public class MainActivity extends BaseActivity implements View, Validator.ValidationListener, MyHorizontalPicker.OnSelectionChangeListener {
+public class MainActivity extends BaseActivity implements View, Validator.ValidationListener, LanguageAdapter.LanguageListener{
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     @Inject CameraSource camera;
@@ -55,7 +58,7 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
     @BindView(R.id.translate) TextView translate;
     @BindView(R.id.fbi_photo) FloatingActionButton fbi_photo;
     @BindView(R.id.fbi_language) FloatingActionButton fbi_language;
-    @BindView(R.id.hpicker) MyHorizontalPicker picker;
+    @BindView(R.id.language_recycler) RecyclerView recycler;
     @BindView(R.id.bottomSheet) android.view.View bottomSheet;
     private HashMap<String, String> map;
     private Validator validator;
@@ -112,13 +115,9 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
 
     @Override
     public void fetchLanguages(List<Language> languages) {
-        List<MyHorizontalPicker.PickerItem> items = new ArrayList<>();
-        for (Language lang : languages) {
-            items.add(new MyHorizontalPicker.LanguageItem(lang));
-        }
-        picker.setItems(items, 0);
-
-       // picker.setValues(descriptions);
+        LanguageAdapter adapter = new LanguageAdapter(languages, this);
+        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recycler.setAdapter(adapter);
     }
 
 
@@ -190,9 +189,9 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
         error("Write a word to field");
     }
 
+
     @Override
-    public void onItemSelect(MyHorizontalPicker var1, int var2) {
-        MyHorizontalPicker.PickerItem selected = picker.getSelectedItem();
-        map.put("lang", selected.getItem().getName());
+    public void onLanguageClick(Language language) {
+
     }
 }
