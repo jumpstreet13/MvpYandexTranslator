@@ -5,4 +5,6 @@
     <color name="colorAccent">#304ffe</color>
     <color name="blue">#AB6F1FDF</color>
     <color name="black">#000</color>
+    <color name="red">#FFFF0000</color>
+    <color name="green">#FF0DFF00</color>
 </resources>

@@ -4,10 +4,11 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <TextView
+    <com.smedialink.abakarmagomedov.mvpyandextranslator.custom_views.StateButton
         android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/middle_padding"/>
+        android:padding="@dimen/middle_padding"
+        android:layout_margin="@dimen/fab_margins"/>
 
 </LinearLayout>

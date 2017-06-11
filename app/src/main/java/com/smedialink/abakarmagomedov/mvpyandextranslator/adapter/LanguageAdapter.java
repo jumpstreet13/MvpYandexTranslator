@@ -4,10 +4,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.smedialink.abakarmagomedov.mvpyandextranslator.R;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.custom_views.StateButton;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Language;
 
 import java.util.List;
@@ -58,14 +57,19 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.Langua
 
         private LanguageListener listener;
         private Language language;
-        @BindView(R.id.description) TextView description;
+        @BindView(R.id.description) StateButton description;
 
         @OnClick(R.id.description)
         void onItemClick() {
+            if(description.getState()){
+                description.setState(false);
+            }else{
+                description.setState(true);
+            }
             listener.onLanguageClick(language);
         }
 
-        public LanguageHolder(View itemView) {
+        LanguageHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

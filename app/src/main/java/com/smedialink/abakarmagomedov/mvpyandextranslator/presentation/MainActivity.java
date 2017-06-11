@@ -192,6 +192,6 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
 
     @Override
     public void onLanguageClick(Language language) {
-
+        map.put("lang", language.getName());
     }
 }
