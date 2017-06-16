@@ -47,7 +47,7 @@ import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public class MainActivity extends BaseActivity implements View, Validator.ValidationListener, LanguageAdapter.LanguageListener{
+public class MainActivity extends BaseActivity implements View, Validator.ValidationListener{
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     @Inject CameraSource camera;
@@ -58,7 +58,6 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
     @BindView(R.id.translate) TextView translate;
     @BindView(R.id.fbi_photo) FloatingActionButton fbi_photo;
     @BindView(R.id.fbi_language) FloatingActionButton fbi_language;
-    @BindView(R.id.language_recycler) RecyclerView recycler;
     @BindView(R.id.bottomSheet) android.view.View bottomSheet;
     private HashMap<String, String> map;
     private Validator validator;
@@ -115,9 +114,7 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
 
     @Override
     public void fetchLanguages(List<Language> languages) {
-        LanguageAdapter adapter = new LanguageAdapter(languages, this);
-        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recycler.setAdapter(adapter);
+
     }
 
 
@@ -189,9 +186,4 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
         error("Write a word to field");
     }
 
-
-    @Override
-    public void onLanguageClick(Language language) {
-        map.put("lang", language.getName());
-    }
 }

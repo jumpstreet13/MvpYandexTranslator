@@ -5,11 +5,12 @@
     <dimen name="middle_padding">16dp</dimen>
     <dimen name="fab_margins">8dp</dimen>
     <dimen name="size_of_fab">50dp</dimen>
+    <dimen name="bottom_sheet_size">150dp</dimen>
+    <dimen name="middle_margin">12dp</dimen>
 
 
 
     <!--fonts-->
     <dimen name="middle_text_size">16sp</dimen>
-    <dimen name="bottom_sheet_size">150dp</dimen>
 
 </resources>
