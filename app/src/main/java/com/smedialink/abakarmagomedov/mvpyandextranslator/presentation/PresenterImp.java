@@ -22,7 +22,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class PresenterImp extends BasePresenterImp<View, Interactor> implements Presenter {
 
-    private Disposable subscriptionTranslate, subscriptionLanguage;
+    private Disposable subscriptionTranslate;
 
     public PresenterImp(@NonNull Interactor interactor) {
         super(interactor);
@@ -39,19 +39,6 @@ public class PresenterImp extends BasePresenterImp<View, Interactor> implements 
                 .any(translate -> (translate != null))
                 .subscribe(aBoolean -> {
                     if(!aBoolean) getView().error("No internet connection");
-                    getView().hideProgress();
-                });
-    }
-
-    @Override
-    public void getLanguageList() {
-        subscriptionLanguage = getInteractor()
-                .getLanguages()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(languages -> {
-                    if(!languages.isEmpty()) getView().fetchLanguages(languages);
-                    else getView().error("Can not download list of languages");
                     getView().hideProgress();
                 });
     }

@@ -33,6 +33,7 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Language;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.net.Links;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.MainActivityModule;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.base.LogicComponent;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.language_choose.LanguageActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,8 +71,8 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
 
     @OnClick(R.id.fbi_language)
     void onFbiLanguageClick() {
-        mPresenter.getLanguageList();
-        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        start(LanguageActivity.class);
+        //mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
     @OnClick(R.id.translate_button)
@@ -111,12 +112,6 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
         }
         englishText.setSelection(englishText.getText().length());
     }
-
-    @Override
-    public void fetchLanguages(List<Language> languages) {
-
-    }
-
 
     @Override
     public void error(String error) {

@@ -21,20 +21,13 @@ import io.reactivex.Observable;
 public class InteractorImp implements Interactor {
 
     private final WordsRepository wordsRepository;
-    private final LanguagesRepository languagesRepository;
 
-    public InteractorImp(WordsRepository wordsRepository, LanguagesRepository languagesRepository) {
+    public InteractorImp(WordsRepository wordsRepository) {
         this.wordsRepository = wordsRepository;
-        this.languagesRepository = languagesRepository;
     }
 
     @Override
     public Observable<Translate> getWord(HashMap<String, String> hashMap) {
         return wordsRepository.query(hashMap, StoreType.DB).mergeWith(wordsRepository.query(hashMap, StoreType.CLOUD));
-    }
-
-    @Override
-    public Observable<List<Language>> getLanguages() {
-        return languagesRepository.getLanguages(StoreType.DB).mergeWith(languagesRepository.getLanguages(StoreType.CLOUD));
     }
 }

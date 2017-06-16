@@ -10,5 +10,4 @@ import java.util.HashMap;
 
 public interface Presenter extends BasePresenter<View, Interactor> {
     void getData(HashMap<String,String> hashMap);
-    void getLanguageList();
 }

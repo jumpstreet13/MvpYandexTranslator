@@ -11,5 +11,4 @@ import java.util.List;
 
 public interface View extends BaseView {
     void fetchData(List<String> translate, String text);
-    void fetchLanguages(List<Language> languages);
 }
