@@ -7,6 +7,7 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.language_
 import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.language_choose.LanguagePresenter;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.language_choose.LanguagePresenterImp;
 
+import dagger.Module;
 import dagger.Provides;
 
 /**
@@ -15,6 +16,7 @@ import dagger.Provides;
 
 
 @LanguageScope
+@Module
 public class LanguageActivityModule implements LogicModule {
 
     @LanguageScope

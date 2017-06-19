@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.smedialink.abakarmagomedov.mvpyandextranslator.R;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.custom_views.StateButton;
@@ -60,17 +61,7 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.Langua
 
         private LanguageListener listener;
         private Language language;
-        @BindView(R.id.description) StateButton description;
-
-        @OnClick(R.id.description)
-        void onItemClick() {
-            if(description.getState()){
-                description.setState(false);
-            }else{
-                description.setState(true);
-            }
-            listener.onLanguageClick(language);
-        }
+        @BindView(R.id.languageName) TextView textView;
 
         LanguageHolder(View itemView) {
             super(itemView);
@@ -79,8 +70,8 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.Langua
 
         void bindView(Language language, LanguageListener listener) {
             this.language = language;
-            description.setText(language.getDescription());
             this.listener = listener;
+            textView.setText(language.getDescription());
         }
     }
 

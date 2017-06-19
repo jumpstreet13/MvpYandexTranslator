@@ -35,5 +35,4 @@ public class MainActivityModule implements LogicModule {
     Presenter providePresenter(Interactor interactor){
         return new PresenterImp(interactor);
     }
-
 }
