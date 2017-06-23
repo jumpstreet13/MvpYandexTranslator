@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.base.LogicComponentBuilder;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.MainActivity;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.language_choose.LanguageActivity;
 
 import javax.inject.Singleton;
 
@@ -18,7 +19,7 @@ import dagger.multibindings.IntoMap;
  */
 
 @Singleton
-@Module(subcomponents = {LogicaComponent.class})
+@Module(subcomponents = {MainActivityComponent.class, LanguageActivityComponent.class})
 public class AppModule {
 
     private final Context mContext;
@@ -38,7 +39,15 @@ public class AppModule {
     @IntoMap
     @ClassKey(MainActivity.class)
     @Provides
-    LogicComponentBuilder provideLogicComponentBuilder(LogicaComponent.Builder builder){
+    LogicComponentBuilder provideMainActivityComponentBuilder(MainActivityComponent.Builder builder){
+        return builder;
+    }
+
+    @Singleton
+    @IntoMap
+    @ClassKey(LanguageActivity.class)
+    @Provides
+    LogicComponentBuilder provideLanguageActivityComponentBuilder(LanguageActivityComponent.Builder builder){
         return builder;
     }
 }

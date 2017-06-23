@@ -33,6 +33,7 @@ public class LanguageActivity extends AppCompatActivity implements LanguageView,
         LogicComponent component = (LogicComponent) App.getApp(this).getComponentsHolder()
                 .getLogicComponent(getClass(), new LanguageActivityModule());
         component.inject(this);
+        presenter.attachView(this);
         presenter.getLanguages();
     }
 
@@ -62,5 +63,10 @@ public class LanguageActivity extends AppCompatActivity implements LanguageView,
     @Override
     public void onLanguageClick(Language language) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

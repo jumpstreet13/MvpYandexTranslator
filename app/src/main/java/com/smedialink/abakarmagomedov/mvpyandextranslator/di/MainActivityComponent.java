@@ -13,10 +13,10 @@ import dagger.Subcomponent;
 
 @LogicScope
 @Subcomponent(modules = {MainActivityModule.class})
-public interface LogicaComponent extends LogicComponent<MainActivity>{
+public interface MainActivityComponent extends LogicComponent<MainActivity>{
 
     @Subcomponent.Builder
-    interface Builder extends LogicComponentBuilder<LogicaComponent, MainActivityModule>{
+    interface Builder extends LogicComponentBuilder<MainActivityComponent, MainActivityModule>{
 
     }
 
