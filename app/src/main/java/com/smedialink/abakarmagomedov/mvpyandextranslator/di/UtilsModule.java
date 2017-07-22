@@ -1,6 +1,7 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.di;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -34,6 +35,7 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository.Langua
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository.WordsRepository;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository.WordsRepositoryImp;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.managers.GsonManager;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.managers.SharedPrefManager;
 
 import java.util.List;
 
@@ -50,6 +52,13 @@ import dagger.Provides;
 @Module
 public class UtilsModule {
 
+
+    @Singleton
+    @NonNull
+    @Provides
+    SharedPrefManager provideShadredManager(Context context){
+        return new SharedPrefManager(context);
+    }
 
     @Singleton
     @NonNull

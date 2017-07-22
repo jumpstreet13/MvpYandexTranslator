@@ -24,7 +24,6 @@ public class App extends Application {
         super.onCreate();
         Realm.init(this);
 
-
         Stetho.initialize(
                 Stetho.newInitializerBuilder(this)
                         .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))

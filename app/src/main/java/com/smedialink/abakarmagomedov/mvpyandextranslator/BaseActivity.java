@@ -10,15 +10,18 @@ import android.support.v7.app.AppCompatActivity;
  * Created by abakarmagomedov on 21/05/17.
  */
 
-public class BaseActivity extends AppCompatActivity{
-
+public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    public void start(Class<?> cls){
+    protected void start(Class<?> cls) {
         startActivity(new Intent(this, cls));
+    }
+
+    protected void startForRes(Class<?> cls, int requestCode) {
+        startActivityForResult(new Intent(this, cls), requestCode);
     }
 }

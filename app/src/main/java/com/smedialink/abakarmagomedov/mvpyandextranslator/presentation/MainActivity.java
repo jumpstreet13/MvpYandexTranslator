@@ -7,15 +7,12 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.animation.Animation;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.goodiebag.horizontalpicker.HorizontalPicker;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
@@ -26,13 +23,10 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.App;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.BaseActivity;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.R;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.adapter.LanguageAdapter;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.custom_views.MyHorizontalPicker;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.custom_views.StringPicker;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Language;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.net.Links;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.MainActivityModule;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.base.LogicComponent;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.managers.SharedPrefManager;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.language_choose.LanguageActivity;
 
 import java.util.ArrayList;
@@ -50,10 +44,12 @@ import permissions.dispatcher.RuntimePermissions;
 @RuntimePermissions
 public class MainActivity extends BaseActivity implements View, Validator.ValidationListener{
 
-    static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_LANGUAGE_TO_TRANSLATE = 2;
+    @Inject SharedPrefManager manager;
     @Inject CameraSource camera;
     @Inject TextRecognizer recognizer;
-    @Inject Presenter mPresenter;
+    @Inject Presenter presenter;
     @Inject Animation animation;
     @NotEmpty @BindView(R.id.text) EditText englishText;
     @BindView(R.id.translate) TextView translate;
@@ -62,7 +58,6 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
     @BindView(R.id.bottomSheet) android.view.View bottomSheet;
     private HashMap<String, String> map;
     private Validator validator;
-    private BottomSheetBehavior mBottomSheetBehavior;
 
     @OnClick(R.id.fbi_photo)
     void onFbiClick() {
@@ -71,7 +66,7 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
 
     @OnClick(R.id.fbi_language)
     void onFbiLanguageClick() {
-        start(LanguageActivity.class);
+        startForRes(LanguageActivity.class, REQUEST_LANGUAGE_TO_TRANSLATE);
         //mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
@@ -91,11 +86,11 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
         component.inject(this);
         validator = new Validator(this);
         validator.setValidationListener(this);
-        mPresenter.attachView(this);
+        presenter.attachView(this);
         map = new HashMap<>();
         map.put("key", Links.ACCESS_TOKEN);
         map.put("lang", "ru");
-        mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
     }
 
     @Override
@@ -136,7 +131,7 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
         super.onDestroy();
         if (isFinishing()) {
             App.getApp(this).getComponentsHolder().releaseLogicComponent(getClass());
-            mPresenter.detachView();
+            presenter.detachView();
             recognizer.release();
         }
     }
@@ -163,17 +158,22 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
             }
             if (!list.isEmpty()) {
                 map.put("text", list.get(0));
-                mPresenter.getData(map);
+                presenter.getData(map);
             } else {
                 error("I have found nothing");
             }
+        }
+
+        if(requestCode == REQUEST_LANGUAGE_TO_TRANSLATE && resultCode == RESULT_OK){
+            map.put("lang", manager.readFromPref());
+            presenter.getData(map);
         }
     }
 
     @Override
     public void onValidationSucceeded() {
         map.put("text", englishText.getText().toString());
-        mPresenter.getData(map);
+        presenter.getData(map);
     }
 
     @Override

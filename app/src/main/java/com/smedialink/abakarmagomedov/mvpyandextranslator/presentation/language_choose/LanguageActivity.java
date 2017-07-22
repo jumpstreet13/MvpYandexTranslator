@@ -1,5 +1,6 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.language_choose;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.adapter.LanguageAdapte
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Language;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.LanguageActivityModule;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.base.LogicComponent;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.managers.SharedPrefManager;
 
 import java.util.List;
 
@@ -22,6 +24,7 @@ import butterknife.ButterKnife;
 public class LanguageActivity extends AppCompatActivity implements LanguageView, LanguageAdapter.LanguageListener {
 
     @Inject LanguagePresenter presenter;
+    @Inject SharedPrefManager manager;
     @BindView(R.id.language_recycler) RecyclerView recyclerView;
 
     @SuppressWarnings("all")
@@ -61,6 +64,9 @@ public class LanguageActivity extends AppCompatActivity implements LanguageView,
 
     @Override
     public void onLanguageClick(Language language) {
-
+        manager.writeToPref(language.getDescription());
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }
