@@ -2,7 +2,7 @@ package com.smedialink.abakarmagomedov.mvpyandextranslator.di;
 
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.base.LogicComponent;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.base.LogicComponentBuilder;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.MainActivity;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.translate_screen.TranslateActivity;
 
 import dagger.Subcomponent;
 
@@ -13,7 +13,7 @@ import dagger.Subcomponent;
 
 @LogicScope
 @Subcomponent(modules = {MainActivityModule.class})
-public interface MainActivityComponent extends LogicComponent<MainActivity>{
+public interface MainActivityComponent extends LogicComponent<TranslateActivity>{
 
     @Subcomponent.Builder
     interface Builder extends LogicComponentBuilder<MainActivityComponent, MainActivityModule>{

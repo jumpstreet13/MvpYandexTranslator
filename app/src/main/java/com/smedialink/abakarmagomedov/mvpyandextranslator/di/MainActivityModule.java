@@ -1,15 +1,11 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.di;
 
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.mapper.Mapper;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.realm_object.TranslateRealm;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository.LanguagesRepository;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository.WordsRepository;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.base.LogicModule;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.Interactor;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.InteractorImp;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.Presenter;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.PresenterImp;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.translate_screen.TranslateInteractor;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.translate_screen.TranslateInteractorImp;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.translate_screen.TranslatePresenter;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.translate_screen.TranslatePresenterImp;
 
 import dagger.Module;
 import dagger.Provides;
@@ -26,13 +22,13 @@ public class MainActivityModule implements LogicModule {
 
     @LogicScope
     @Provides
-    Interactor provideInteractor(WordsRepository wordsRepository){
-        return new InteractorImp(wordsRepository);
+    TranslateInteractor provideInteractor(WordsRepository wordsRepository){
+        return new TranslateInteractorImp(wordsRepository);
     }
 
     @LogicScope
     @Provides
-    Presenter providePresenter(Interactor interactor){
-        return new PresenterImp(interactor);
+    TranslatePresenter providePresenter(TranslateInteractor translateInteractor){
+        return new TranslatePresenterImp(translateInteractor);
     }
 }

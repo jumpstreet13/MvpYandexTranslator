@@ -1,4 +1,4 @@
-package com.smedialink.abakarmagomedov.mvpyandextranslator.presentation;
+package com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.translate_screen;
 
 import android.Manifest;
 import android.content.Intent;
@@ -42,14 +42,14 @@ import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public class MainActivity extends BaseActivity implements View, Validator.ValidationListener{
+public class TranslateActivity extends BaseActivity implements TranslateView, Validator.ValidationListener{
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_LANGUAGE_TO_TRANSLATE = 2;
     @Inject SharedPrefManager manager;
     @Inject CameraSource camera;
     @Inject TextRecognizer recognizer;
-    @Inject Presenter presenter;
+    @Inject TranslatePresenter mTranslatePresenter;
     @Inject Animation animation;
     @NotEmpty @BindView(R.id.text) EditText englishText;
     @BindView(R.id.translate) TextView translate;
@@ -61,7 +61,7 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
 
     @OnClick(R.id.fbi_photo)
     void onFbiClick() {
-        MainActivityPermissionsDispatcher.getPhotoWithCheck(this);
+        TranslateActivityPermissionsDispatcher.getPhotoWithCheck(this);
     }
 
     @OnClick(R.id.fbi_language)
@@ -86,7 +86,7 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
         component.inject(this);
         validator = new Validator(this);
         validator.setValidationListener(this);
-        presenter.attachView(this);
+        mTranslatePresenter.attachView(this);
         map = new HashMap<>();
         map.put("key", Links.ACCESS_TOKEN);
         map.put("lang", "ru");
@@ -131,7 +131,7 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
         super.onDestroy();
         if (isFinishing()) {
             App.getApp(this).getComponentsHolder().releaseLogicComponent(getClass());
-            presenter.detachView();
+            mTranslatePresenter.detachView();
             recognizer.release();
         }
     }
@@ -158,7 +158,7 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
             }
             if (!list.isEmpty()) {
                 map.put("text", list.get(0));
-                presenter.getData(map);
+                mTranslatePresenter.getData(map);
             } else {
                 error("I have found nothing");
             }
@@ -166,14 +166,14 @@ public class MainActivity extends BaseActivity implements View, Validator.Valida
 
         if(requestCode == REQUEST_LANGUAGE_TO_TRANSLATE && resultCode == RESULT_OK){
             map.put("lang", manager.readFromPref());
-            presenter.getData(map);
+            mTranslatePresenter.getData(map);
         }
     }
 
     @Override
     public void onValidationSucceeded() {
         map.put("text", englishText.getText().toString());
-        presenter.getData(map);
+        mTranslatePresenter.getData(map);
     }
 
     @Override

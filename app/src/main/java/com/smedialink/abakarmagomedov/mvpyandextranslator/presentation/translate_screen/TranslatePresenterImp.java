@@ -1,31 +1,26 @@
-package com.smedialink.abakarmagomedov.mvpyandextranslator.presentation;
+package com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.translate_screen;
 
 
 import android.support.annotation.NonNull;
 
 import com.smedialink.abakarmagomedov.mvpyandextranslator.BasePresenterImp;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Language;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Translate;
 
 import java.util.HashMap;
-import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by abakarmagomedov on 12/05/17.
  */
 
-public class PresenterImp extends BasePresenterImp<View, Interactor> implements Presenter {
+public class TranslatePresenterImp extends BasePresenterImp<TranslateView, TranslateInteractor> implements TranslatePresenter {
 
     private Disposable subscriptionTranslate;
 
-    public PresenterImp(@NonNull Interactor interactor) {
-        super(interactor);
+    public TranslatePresenterImp(@NonNull TranslateInteractor translateInteractor) {
+        super(translateInteractor);
     }
 
     @Override

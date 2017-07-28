@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.base.LogicComponentBuilder;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.MainActivity;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.translate_screen.TranslateActivity;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.language_choose.LanguageActivity;
 
 import javax.inject.Singleton;
@@ -37,7 +37,7 @@ public class AppModule {
 
     @Singleton
     @IntoMap
-    @ClassKey(MainActivity.class)
+    @ClassKey(TranslateActivity.class)
     @Provides
     LogicComponentBuilder provideMainActivityComponentBuilder(MainActivityComponent.Builder builder){
         return builder;
