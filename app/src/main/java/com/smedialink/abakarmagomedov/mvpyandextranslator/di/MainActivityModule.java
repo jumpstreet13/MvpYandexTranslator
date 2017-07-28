@@ -2,10 +2,10 @@ package com.smedialink.abakarmagomedov.mvpyandextranslator.di;
 
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository.WordsRepository;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.base.LogicModule;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.translate_screen.TranslateInteractor;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.translate_screen.TranslateInteractorImp;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.translate_screen.TranslatePresenter;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.translate_screen.TranslatePresenterImp;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.features.translate_screen.TranslateInteractor;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.features.translate_screen.TranslateInteractorImp;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.features.translate_screen.TranslatePresenter;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.features.translate_screen.TranslatePresenterImp;
 
 import dagger.Module;
 import dagger.Provides;

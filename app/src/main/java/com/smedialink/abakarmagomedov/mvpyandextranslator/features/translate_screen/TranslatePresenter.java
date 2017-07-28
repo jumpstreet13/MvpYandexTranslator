@@ -1,4 +1,4 @@
-package com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.translate_screen;
+package com.smedialink.abakarmagomedov.mvpyandextranslator.features.translate_screen;
 
 import com.smedialink.abakarmagomedov.mvpyandextranslator.BasePresenter;
 

@@ -24,7 +24,7 @@ public class TranslateDataStoreCloud implements TranslateDataStore {
     protected final Mapper<TranslateRealm, Translate> mapper;
 
 
-    public TranslateDataStoreCloud(@NonNull Mapper<TranslateRealm, Translate> mapper, YandexApi api) {
+    public TranslateDataStoreCloud(Mapper<TranslateRealm, Translate> mapper, YandexApi api) {
         this.mapper = mapper;
         this.api = api;
     }
@@ -32,12 +32,13 @@ public class TranslateDataStoreCloud implements TranslateDataStore {
 
     @Override
     public Observable<Translate> wordsList(HashMap<String, String> hashMap) {
-        return api.getTranslate(hashMap).observeOn(Schedulers.io())
+        return api.getTranslate(hashMap)
+                .observeOn(Schedulers.io())
                 .map(translate -> {
                     translate.setText(hashMap.get("text"));
                     return mapper.mapTo(translate);
                 })
-                .doOnNext(RealmManager::writeToRealm)       // TODO: 01/06/17 Throw this logic to repository
+                .doOnNext(RealmManager::writeToRealm)       // TODO: 01/06/17 Throw mapping logic to interactor
                 .map(mapper::mapFrom)
                 .onErrorResumeNext(throwable -> {
                     return Observable.empty();

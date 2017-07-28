@@ -1,8 +1,7 @@
-package com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.language_choose;
+package com.smedialink.abakarmagomedov.mvpyandextranslator.features.language_choose_screen;
 
 import android.support.annotation.NonNull;
 
-import com.smedialink.abakarmagomedov.mvpyandextranslator.BasePresenter;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.BasePresenterImp;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;

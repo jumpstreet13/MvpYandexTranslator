@@ -1,4 +1,4 @@
-package com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.language_choose;
+package com.smedialink.abakarmagomedov.mvpyandextranslator.features.language_choose_screen;
 
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.StoreType;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Language;

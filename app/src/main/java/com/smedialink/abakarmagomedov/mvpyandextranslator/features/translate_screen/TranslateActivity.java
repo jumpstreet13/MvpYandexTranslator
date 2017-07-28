@@ -1,4 +1,4 @@
-package com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.translate_screen;
+package com.smedialink.abakarmagomedov.mvpyandextranslator.features.translate_screen;
 
 import android.Manifest;
 import android.content.Intent;
@@ -27,7 +27,7 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.data.net.Links;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.MainActivityModule;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.base.LogicComponent;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.managers.SharedPrefManager;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.language_choose.LanguageActivity;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.features.language_choose_screen.LanguageActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;

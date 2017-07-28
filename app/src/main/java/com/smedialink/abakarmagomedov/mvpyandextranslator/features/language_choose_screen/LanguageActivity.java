@@ -1,4 +1,4 @@
-package com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.language_choose;
+package com.smedialink.abakarmagomedov.mvpyandextranslator.features.language_choose_screen;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

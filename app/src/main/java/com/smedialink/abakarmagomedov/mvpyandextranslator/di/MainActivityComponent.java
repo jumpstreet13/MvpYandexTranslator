@@ -2,7 +2,7 @@ package com.smedialink.abakarmagomedov.mvpyandextranslator.di;
 
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.base.LogicComponent;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.di.base.LogicComponentBuilder;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.presentation.translate_screen.TranslateActivity;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.features.translate_screen.TranslateActivity;
 
 import dagger.Subcomponent;
 
