@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.R;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.custom_views.StateButton;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.entity.Language;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.managers.SharedPrefManager;
 
 import java.util.HashSet;
 import java.util.List;
@@ -28,10 +29,13 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.Langua
 
     private List<Language> languageList;
     private LanguageListener listener;
+    private String chosenLanguage;
 
-    public LanguageAdapter(List<Language> languageList, LanguageListener listener) {
+
+    public LanguageAdapter(List<Language> languageList, LanguageListener listener, String chosenLanguage) {
         this.languageList = languageList;
         this.listener = listener;
+        this.chosenLanguage = chosenLanguage;
     }
 
 
@@ -45,7 +49,7 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.Langua
     @Override
     public void onBindViewHolder(LanguageHolder holder, int position) {
         Language language = languageList.get(position);
-        holder.bindView(language, listener);
+        holder.bindView(language, listener, chosenLanguage);
     }
 
     @Override
@@ -75,10 +79,12 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.Langua
             ButterKnife.bind(this, itemView);
         }
 
-        void bindView(Language language, LanguageListener listener) {
+        void bindView(Language language, LanguageListener listener, String chosenLanguage) {
             this.language = language;
             this.listener = listener;
             textView.setText(language.getDescription());
+            if(language.getDescription().equals(chosenLanguage)) languageCheck.setChecked(true);
+            else languageCheck.setChecked(false);
         }
     }
 

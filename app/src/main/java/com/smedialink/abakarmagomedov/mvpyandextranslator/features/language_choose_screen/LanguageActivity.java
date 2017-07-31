@@ -61,7 +61,7 @@ public class LanguageActivity extends AppCompatActivity implements LanguageView,
 
     @Override
     public void fetchLanguages(List<Language> languages) {
-        LanguageAdapter adapter = new LanguageAdapter(languages, this);
+        LanguageAdapter adapter = new LanguageAdapter(languages, this, manager.readDescriptionFromPref());   // TODO: 31/07/17 Remove this sheet
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
@@ -69,6 +69,7 @@ public class LanguageActivity extends AppCompatActivity implements LanguageView,
     @Override
     public void onLanguageClick(Language language) {
         manager.writeToPref(language.getName());
+        manager.writeDescriptionToPref(language.getDescription());
         Intent intent = new Intent();
         setResult(RESULT_OK, intent);
         finish();

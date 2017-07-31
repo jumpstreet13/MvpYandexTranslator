@@ -11,6 +11,7 @@ import android.preference.PreferenceManager;
 public class SharedPrefManager {
 
     private final static String TRANSLATE_LANG = "tranlate_lang";
+    private final static String DESCRIPTION_LANG = "description_lang";
     private SharedPreferences sharedPreference;
 
     public SharedPrefManager(Context context) {
@@ -24,8 +25,18 @@ public class SharedPrefManager {
         editor.apply();
     }
 
+    public void writeDescriptionToPref(String lang){
+        SharedPreferences.Editor editor = sharedPreference.edit();
+        editor.putString(DESCRIPTION_LANG, lang);
+        editor.apply();
+    }
+
+    public String readDescriptionFromPref(){
+        return sharedPreference.getString(DESCRIPTION_LANG, "English");
+    }
+
     public String readFromPref(){
-        return sharedPreference.getString(TRANSLATE_LANG, "en");
+        return sharedPreference.getString(TRANSLATE_LANG, "en");    // TODO: 31/07/17 Put here GSONMANAGER
     }
 
 }

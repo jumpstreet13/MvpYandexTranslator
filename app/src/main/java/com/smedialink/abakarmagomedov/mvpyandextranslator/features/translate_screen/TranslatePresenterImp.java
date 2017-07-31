@@ -25,6 +25,7 @@ public class TranslatePresenterImp extends BasePresenterImp<TranslateView, Trans
 
     @Override
     public void getData(HashMap<String, String> hashMap) {
+        if(hashMap.get("text").isEmpty()) return;
         subscriptionTranslate = getInteractor()
                 .getWord(hashMap)
                 .subscribeOn(Schedulers.io())
