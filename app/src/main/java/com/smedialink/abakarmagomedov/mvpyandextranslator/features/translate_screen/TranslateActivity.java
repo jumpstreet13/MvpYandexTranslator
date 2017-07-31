@@ -67,7 +67,6 @@ public class TranslateActivity extends BaseActivity implements TranslateView, Va
     @OnClick(R.id.fbi_language)
     void onFbiLanguageClick() {
         startForRes(LanguageActivity.class, REQUEST_LANGUAGE_TO_TRANSLATE);
-        //mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
     @OnClick(R.id.translate_button)
@@ -79,7 +78,7 @@ public class TranslateActivity extends BaseActivity implements TranslateView, Va
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_translate);
         ButterKnife.bind(this);
         LogicComponent component = (LogicComponent) App.getApp(this).getComponentsHolder()
                 .getLogicComponent(getClass(), new MainActivityModule());
@@ -96,7 +95,7 @@ public class TranslateActivity extends BaseActivity implements TranslateView, Va
     @Override
     public void fetchData(List<String> translate, String text) {
         if (translate == null) {
-            error("No internet connection");
+            error(getString(R.string.no_internet_connection));
             return;
         }
         this.englishText.setText("");
@@ -160,12 +159,13 @@ public class TranslateActivity extends BaseActivity implements TranslateView, Va
                 map.put("text", list.get(0));
                 mTranslatePresenter.getData(map);
             } else {
-                error("I have found nothing");
+                error(getString(R.string.i_have_found_nothing));
             }
         }
 
         if(requestCode == REQUEST_LANGUAGE_TO_TRANSLATE && resultCode == RESULT_OK){
             map.put("lang", manager.readFromPref());
+            map.put("text", englishText.getText().toString());
             mTranslatePresenter.getData(map);
         }
     }
@@ -178,7 +178,7 @@ public class TranslateActivity extends BaseActivity implements TranslateView, Va
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
-        error("Write a word to field");
+        error(getString(R.string.write_a_word_to_field));
     }
 
 }

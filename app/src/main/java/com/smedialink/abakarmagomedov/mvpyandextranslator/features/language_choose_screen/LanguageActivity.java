@@ -1,10 +1,13 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.features.language_choose_screen;
 
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.smedialink.abakarmagomedov.mvpyandextranslator.App;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.R;
@@ -43,7 +46,7 @@ public class LanguageActivity extends AppCompatActivity implements LanguageView,
 
     @Override
     public void error(String error) {
-
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -65,7 +68,7 @@ public class LanguageActivity extends AppCompatActivity implements LanguageView,
 
     @Override
     public void onLanguageClick(Language language) {
-        manager.writeToPref(language.getDescription());
+        manager.writeToPref(language.getName());
         Intent intent = new Intent();
         setResult(RESULT_OK, intent);
         finish();

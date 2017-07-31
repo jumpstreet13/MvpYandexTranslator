@@ -4,6 +4,8 @@
     <string name="english">english</string>
     <string name="russian">russian</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="write_a_word_to_field">Write a word to field</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="i_have_found_nothing">I have found nothing</string>
 </resources>

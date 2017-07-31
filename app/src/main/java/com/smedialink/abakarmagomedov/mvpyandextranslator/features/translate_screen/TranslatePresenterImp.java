@@ -43,4 +43,10 @@ public class TranslatePresenterImp extends BasePresenterImp<TranslateView, Trans
     public Disposable hasSubscription() {
         return subscriptionTranslate;
     }
+
+    @Override
+    public void detachView() {
+        super.detachView();
+        subscriptionTranslate.dispose();
+    }
 }

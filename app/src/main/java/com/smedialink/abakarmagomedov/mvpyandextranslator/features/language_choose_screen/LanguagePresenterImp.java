@@ -22,7 +22,7 @@ public class LanguagePresenterImp extends BasePresenterImp<LanguageView, Languag
 
     @Override
     public Disposable hasSubscription() {
-        return null;
+        return subscriptionLanguage;
     }
 
     @Override
@@ -36,5 +36,11 @@ public class LanguagePresenterImp extends BasePresenterImp<LanguageView, Languag
                     else getView().error("Can not download list of languages");
                     getView().hideProgress();
                 });
+    }
+
+    @Override
+    public void detachView() {
+        super.detachView();
+        subscriptionLanguage.dispose();
     }
 }

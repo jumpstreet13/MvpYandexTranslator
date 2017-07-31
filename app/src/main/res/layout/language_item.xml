@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:andorid="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -7,19 +8,20 @@
 
 
     <TextView
-        android:layout_weight="0.8"
         android:id="@+id/languageName"
         style="@style/TextStyle"
         android:layout_width="0dp"
-        android:textAlignment="textStart"
-        android:layout_gravity="start"
         android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_weight="0.8"
+        android:textAlignment="textStart"
         tools:text="English"/>
 
     <CheckBox
-        android:layout_weight="0.2"
+        android:id="@+id/language_check"
         android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_height="wrap_content"/>
+        android:layout_weight="0.2"/>
 
 </LinearLayout>

@@ -13,5 +13,4 @@ import io.reactivex.Observable;
 public interface LanguageDataStore {
 
     Observable<List<Language>> languageList();
-
 }

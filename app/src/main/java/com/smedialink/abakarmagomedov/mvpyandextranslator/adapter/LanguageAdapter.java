@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.smedialink.abakarmagomedov.mvpyandextranslator.R;
@@ -62,6 +63,12 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.Langua
         private LanguageListener listener;
         private Language language;
         @BindView(R.id.languageName) TextView textView;
+        @BindView(R.id.language_check) CheckBox languageCheck;
+
+        @OnClick(R.id.language_check)
+        void onLanguageClick() {
+            listener.onLanguageClick(language);
+        }
 
         LanguageHolder(View itemView) {
             super(itemView);

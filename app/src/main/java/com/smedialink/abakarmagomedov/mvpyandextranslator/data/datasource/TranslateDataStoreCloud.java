@@ -43,7 +43,6 @@ public class TranslateDataStoreCloud implements TranslateDataStore {
                 .onErrorResumeNext(throwable -> {
                     return Observable.empty();
                 });
-
     }
 
 }
