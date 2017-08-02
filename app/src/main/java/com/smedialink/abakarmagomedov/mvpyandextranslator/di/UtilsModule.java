@@ -1,7 +1,6 @@
 package com.smedialink.abakarmagomedov.mvpyandextranslator.di;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -14,7 +13,7 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.R;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.BaseDataStoreCreator;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.LanguageDataStore;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.LanguageDataStoreBase;
-import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.LanguageDataStroreCloud;
+import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.LanguageDataStoreCloud;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.LanguageDataStroreCreator;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.TranslateDataStore;
 import com.smedialink.abakarmagomedov.mvpyandextranslator.data.datasource.TranslateDataStoreBase;
@@ -110,7 +109,7 @@ public class UtilsModule {
     @CloudStore
     LanguageDataStore provideLanguageCloudStore(Mapper<Langs, List<LanguageRealm>> mapper,
                                                 YandexApi yandexApi, Mapper<LanguageRealm, Language> langMapper) {
-        return new LanguageDataStroreCloud(yandexApi, mapper, langMapper);
+        return new LanguageDataStoreCloud(yandexApi, mapper, langMapper);
     }
 
     @Singleton

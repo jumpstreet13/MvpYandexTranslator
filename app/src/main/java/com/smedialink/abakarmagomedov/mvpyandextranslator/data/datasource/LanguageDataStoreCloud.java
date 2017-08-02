@@ -18,7 +18,7 @@ import io.reactivex.functions.Function;
  * Created by abakarmagomedov on 01/06/17.
  */
 
-public class LanguageDataStroreCloud implements LanguageDataStore {
+public class LanguageDataStoreCloud implements LanguageDataStore {
 
 
     private final YandexApi api;
@@ -26,7 +26,7 @@ public class LanguageDataStroreCloud implements LanguageDataStore {
     private Mapper<LanguageRealm, Language> langMapper;
 
 
-    public LanguageDataStroreCloud(YandexApi api, Mapper<Langs, List<LanguageRealm>> mapper, Mapper<LanguageRealm, Language> langMapper) {
+    public LanguageDataStoreCloud(YandexApi api, Mapper<Langs, List<LanguageRealm>> mapper, Mapper<LanguageRealm, Language> langMapper) {
         this.api = api;
         this.realmMapper = mapper;
         this.langMapper = langMapper;
@@ -45,7 +45,7 @@ public class LanguageDataStroreCloud implements LanguageDataStore {
                     List<Language> languages = new ArrayList<>();
                     for (LanguageRealm languageRealm : languageRealms) {
                         Language lang = langMapper.mapFrom(languageRealm);
-                        lang.setDescription(lang.getDescription().replace("\'", ""));
+                        lang.setDescription(lang.getDescription());
                         languages.add(lang);
                     }
                     return languages;

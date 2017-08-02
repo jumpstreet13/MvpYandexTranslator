@@ -7,12 +7,13 @@ import com.smedialink.abakarmagomedov.mvpyandextranslator.data.repository.Langua
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.Function;
 
 /**
  * Created by abakarmagomedov on 16/06/17.
  */
 
-public class LanguageInteractorImp implements LanguageInteractor{
+public class LanguageInteractorImp implements LanguageInteractor {
 
     private final LanguagesRepository languagesRepository;
 
@@ -22,6 +23,13 @@ public class LanguageInteractorImp implements LanguageInteractor{
 
     @Override
     public Observable<List<Language>> getLanguages() {
-        return languagesRepository.getLanguages(StoreType.DB).mergeWith(languagesRepository.getLanguages(StoreType.CLOUD));
+        return languagesRepository.getLanguages(StoreType.DB)
+                .mergeWith(languagesRepository.getLanguages(StoreType.CLOUD))
+                .map(languages -> {
+                    for (Language language : languages) {
+                        language.setDescription(language.getDescription().substring(1, language.getDescription().length() - 1));
+                    }
+                    return languages;
+                });
     }
 }

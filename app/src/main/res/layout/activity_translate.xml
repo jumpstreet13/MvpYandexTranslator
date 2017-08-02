@@ -83,6 +83,7 @@
         android:layout_height="wrap_content"
         android:text="@string/translate_it"
         android:textSize="@dimen/middle_text_size"
+        android:background="@color/colorAccent"
         app:layout_anchor="@+id/bottomSheet"
         app:layout_anchorGravity="top|center"/>
 
