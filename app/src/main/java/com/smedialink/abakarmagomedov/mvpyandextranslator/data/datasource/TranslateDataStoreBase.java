@@ -32,8 +32,8 @@ public class TranslateDataStoreBase implements TranslateDataStore {
 
         TranslateRealm cachedWords = Realm.getDefaultInstance()
                 .where(TranslateRealm.class)
-                .equalTo("lang", hashMap.get("lang"))
                 .equalTo("text", hashMap.get("text"))
+                .equalTo("lang", hashMap.get("lang"))
                 .findFirst();
 
         if (cachedWords != null) {

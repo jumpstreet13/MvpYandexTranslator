@@ -47,6 +47,9 @@ public class LanguageActivity extends AppCompatActivity implements LanguageView,
     @Override
     public void error(String error) {
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent();
+        setResult(RESULT_CANCELED, intent);
+        finish();
     }
 
     @Override
