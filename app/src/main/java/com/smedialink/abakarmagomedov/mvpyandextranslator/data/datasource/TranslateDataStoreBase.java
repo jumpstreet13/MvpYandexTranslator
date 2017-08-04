@@ -30,7 +30,7 @@ public class TranslateDataStoreBase implements TranslateDataStore {
 
     private Observable<Translate> fetchCached(HashMap<String, String> hashMap) {
 
-        TranslateRealm cachedWords = Realm.getDefaultInstance()
+        TranslateRealm cachedWords = Realm.getDefaultInstance()   // TODO: 04/08/17 Make something with closing Realm
                 .where(TranslateRealm.class)
                 .equalTo("text", hashMap.get("text"))
                 .equalTo("lang", hashMap.get("lang"))

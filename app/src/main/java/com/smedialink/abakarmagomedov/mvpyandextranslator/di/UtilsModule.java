@@ -42,6 +42,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.realm.Realm;
 
 /**
  * Created by abakarmagomedov on 12/05/17.
