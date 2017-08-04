@@ -20,7 +20,7 @@ public class TranslateDataStoreBase implements TranslateDataStore {
     protected final Mapper<TranslateRealm, Translate> mapper;
 
     public TranslateDataStoreBase(@NonNull Mapper<TranslateRealm, Translate> mapper) {
-       this.mapper = mapper;
+        this.mapper = mapper;
     }
 
     @Override
@@ -29,8 +29,9 @@ public class TranslateDataStoreBase implements TranslateDataStore {
     }
 
     private Observable<Translate> fetchCached(HashMap<String, String> hashMap) {
+        Realm realm = Realm.getDefaultInstance();
 
-        TranslateRealm cachedWords = Realm.getDefaultInstance()   // TODO: 04/08/17 Make something with closing Realm
+        TranslateRealm cachedWords = realm   // TODO: 04/08/17 Make something with closing Realm
                 .where(TranslateRealm.class)
                 .equalTo("text", hashMap.get("text"))
                 .equalTo("lang", hashMap.get("lang"))
@@ -40,6 +41,7 @@ public class TranslateDataStoreBase implements TranslateDataStore {
             TranslateRealm translateRealm = new TranslateRealm();
             translateRealm.setText(cachedWords.getText());
             translateRealm.setTranslate(cachedWords.getTranslate());
+            realm.close();
             return Observable.just(translateRealm)
                     .map(mapper::mapFrom);
         }

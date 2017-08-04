@@ -10,8 +10,9 @@ import io.realm.RealmObject;
 
 public class RealmManager {
 
-    public static <T extends RealmObject> void writeToRealm(final T translateRealm){
-        Realm.getDefaultInstance().
-                executeTransaction(realm -> realm.insertOrUpdate(translateRealm));
+    public static <T extends RealmObject> void writeToRealm(final T translateRealm) {
+        Realm realmE = Realm.getDefaultInstance();
+        realmE.executeTransaction(realm -> realm.insertOrUpdate(translateRealm));
+        realmE.close();
     }
 }

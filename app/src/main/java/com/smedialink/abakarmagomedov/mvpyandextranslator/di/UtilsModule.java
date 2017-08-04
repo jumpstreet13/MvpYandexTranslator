@@ -185,5 +185,4 @@ public class UtilsModule {
     BaseDataStoreCreator<LanguageDataStore> provideLanguageDataStore(@CloudStore LanguageDataStore cloud, @DefaultStore LanguageDataStore base){
         return new LanguageDataStroreCreator(base, cloud);
     }
-
 }
