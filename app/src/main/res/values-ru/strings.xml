@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Simple Translator</string>
+    <string name="i_have_found_nothing">Я ничего не нашел</string>
+    <string name="no_internet_connection">Плохое интернет соединение</string>
+    <string name="translate_it">Перевод</string>
+    <string name="write_a_word_to_field">Введиите слово для перевода</string>
+</resources>
